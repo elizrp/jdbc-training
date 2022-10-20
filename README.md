@@ -2,7 +2,7 @@
 
 This is a project which uses JDBC for database management and testing.
 
-###Prerequisite
+### Prerequisites
 - Local Postgres database setup
 - 'customers' table with example data
 
