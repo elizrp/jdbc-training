@@ -1,18 +1,19 @@
 package helpers.DatabaseSingletonHelper;
 
+import helpers.DatabaseFactory;
 import helpers.PropertiesHelper;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class SingletonHelper {
+public class SingletonHelper implements DatabaseFactory {
 
     private static PropertiesHelper propertiesHelper;
-
     private static Connection connection;
 
-    static {
+    @Override
+    public Connection getConnection() {
         try {
             // ensure new connection is created only if there is no existing one
             if (connection == null || connection.isClosed()) {
@@ -32,9 +33,7 @@ public class SingletonHelper {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
 
-    public static Connection getConnection() {
         return connection;
     }
 }

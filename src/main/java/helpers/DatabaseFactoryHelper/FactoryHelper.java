@@ -1,15 +1,17 @@
 package helpers.DatabaseFactoryHelper;
 
+import helpers.DatabaseFactory;
 import helpers.PropertiesHelper;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class FactoryHelper {
+public class FactoryHelper implements DatabaseFactory {
 
     private static PropertiesHelper propertiesHelper;
 
-    public static Connection createConnection() {
+    @Override
+    public Connection getConnection() {
         Connection connection = null;
 
         try {
