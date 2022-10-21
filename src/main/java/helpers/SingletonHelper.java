@@ -1,4 +1,4 @@
-package helpers.DatabaseSingletonHelper;
+package helpers;
 
 import helpers.DatabaseFactory;
 import helpers.PropertiesHelper;

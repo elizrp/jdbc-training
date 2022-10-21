@@ -1,8 +1,6 @@
-package helpers;
-
-import helpers.DatabaseFactoryHelper.FactoryHelper;
-import helpers.DatabaseSingletonHelper.SingletonHelper;
-import helpers.constants.SqlQueries;
+import constants.SqlQueries;
+import helpers.FactoryHelper;
+import helpers.SingletonHelper;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

@@ -1,4 +1,4 @@
-package helpers.DatabaseFactoryHelper;
+package helpers;
 
 import helpers.DatabaseFactory;
 import helpers.PropertiesHelper;

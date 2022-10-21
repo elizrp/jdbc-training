@@ -1,4 +1,4 @@
-package helpers.constants;
+package constants;
 
 public interface SqlQueries {
 
