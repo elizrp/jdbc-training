@@ -1,12 +1,17 @@
 package helpers;
 
+import dao.CustomerDaoImpl;
 import helpers.DatabaseFactory;
 import helpers.PropertiesHelper;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FactoryHelper implements DatabaseFactory {
+
+    private static Logger logger = Logger.getLogger(FactoryHelper.class.getName());
 
     private static PropertiesHelper propertiesHelper;
 
@@ -23,7 +28,7 @@ public class FactoryHelper implements DatabaseFactory {
                     propertiesHelper.getPassword());
 
             if (connection != null) {
-                System.out.println("Successfully connected to database using Factory pattern.");
+                logger.log(Level.INFO, "Successfully connected to database using Factory pattern.");
             }
         } catch (Exception e) {
             e.printStackTrace();
