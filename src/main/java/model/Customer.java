@@ -17,7 +17,6 @@ import java.io.Serializable;
 @Builder
 public class Customer implements Serializable {
 
-//    private @NonNull int id;
     private @NonNull String name;
     private @NonNull String email;
     private @NonNull String phone;
@@ -29,7 +28,7 @@ public class Customer implements Serializable {
     private String deactivationReason;
     private String notes;
 
-    // Modify toString() method to make the output more readable
+    // modify toString() method to make the output more readable
     @Override
     public String toString() {
         return "Customer info: {" +

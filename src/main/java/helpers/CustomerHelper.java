@@ -5,12 +5,8 @@ import model.Customer;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
 
 /**
  * Class CustomerHelper contains methods for creating one or more Customer objects,
