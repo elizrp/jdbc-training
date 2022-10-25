@@ -17,6 +17,7 @@ import java.io.Serializable;
 @Builder
 public class Customer implements Serializable {
 
+    private @NonNull int id;
     private @NonNull String name;
     private @NonNull String email;
     private @NonNull String phone;
@@ -27,6 +28,9 @@ public class Customer implements Serializable {
     private Date profileDeactivatedDate;
     private String deactivationReason;
     private String notes;
+
+    public Customer() {
+    }
 
     // modify toString() method to make the output more readable
     @Override

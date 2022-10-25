@@ -10,10 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class CustomerDaoImpl implements CustomerDao<Customer> {
 
-    private static Logger logger = Logger.getLogger(CustomerDaoImpl.class.getName());
+    private static final Logger logger = Logger.getLogger(CustomerDaoImpl.class.getName());
     private static Connection connection;
     private static FactoryHelper factoryHelper;
 
@@ -166,27 +167,88 @@ public class CustomerDaoImpl implements CustomerDao<Customer> {
 
     /**
      * TODO:
-     * Extracts a single customer from the database by ID
+     * Extracts a single customer from the database by ID.
+     * Uses ResultSet for mapping db data to pojo.
      *
      * @param id the id of the customer
      * @return Customer object
      */
     @Override
     public Customer getById(int id) {
-        logger.log(Level.INFO, "This method will be implemented in the next story.");
-        return null;
+
+        Customer customer = null;
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(
+                     String.format("select * from customers where id = %s", id))) {
+
+            if (resultSet.next()) {
+                customer = new Customer();
+                customer.setId(resultSet.getInt("id"));
+                customer.setName(resultSet.getString("name"));
+                customer.setEmail(resultSet.getString("email"));
+                customer.setPhone(resultSet.getString("phone"));
+                customer.setAge(resultSet.getInt("age"));
+                customer.setGdprConsentStatus(resultSet.getBoolean("gdpr_consent_status"));
+                customer.setCustomerProfileStatus(resultSet.getBoolean("customer_profile_status"));
+                customer.setProfileCreatedDate(resultSet.getDate("profile_created_date"));
+                customer.setProfileDeactivatedDate(resultSet.getDate("profile_deactivated_date"));
+                customer.setDeactivationReason(resultSet.getString("deactivation_reason"));
+                customer.setNotes(resultSet.getString("notes"));
+            } else {
+                logger.log(Level.WARNING, "The database did not return any data.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return customer;
     }
 
     /**
      * TODO:
-     * Extracts a list of objects from the database by a List of IDs
+     * Extracts a list of objects from the database by a List of IDs.
+     * Uses ResultSet for mapping db data to pojo.
      *
      * @param ids a list of ids of customers
      * @return a list of Customer objects
      */
     @Override
     public List<Customer> getByIds(List<Integer> ids) {
-        logger.log(Level.INFO, "This method will be implemented in the next story.");
-        return null;
+
+        List<Customer> customers = new ArrayList<>();
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(String.format("select * from customers where id in (%s)", ids
+                     .stream()
+                     .map(Object::toString)
+                     .collect(Collectors.joining(", "))))) {
+
+            while (resultSet.next()) {
+                Customer customer = new Customer();
+                customer.setId(resultSet.getInt("id"));
+                customer.setName(resultSet.getString("name"));
+                customer.setEmail(resultSet.getString("email"));
+                customer.setPhone(resultSet.getString("phone"));
+                customer.setAge(resultSet.getInt("age"));
+                customer.setGdprConsentStatus(resultSet.getBoolean("gdpr_consent_status"));
+                customer.setCustomerProfileStatus(resultSet.getBoolean("customer_profile_status"));
+                customer.setProfileCreatedDate(resultSet.getDate("profile_created_date"));
+                customer.setProfileDeactivatedDate(resultSet.getDate("profile_deactivated_date"));
+                customer.setDeactivationReason(resultSet.getString("deactivation_reason"));
+                customer.setNotes(resultSet.getString("notes"));
+
+                customers.add(customer);
+            }
+
+            if (customers.isEmpty()) {
+                logger.log(Level.WARNING, "The database did not return any data.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return customers;
     }
 }

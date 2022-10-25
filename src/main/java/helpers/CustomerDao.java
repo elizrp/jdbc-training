@@ -24,5 +24,4 @@ public interface CustomerDao<T> {
     public T getById(int id);
 
     public List<T> getByIds(List<Integer> ids);
-
 }
