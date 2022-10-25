@@ -2,7 +2,7 @@ package model;
 
 import lombok.*;
 
-import java.util.Date;
+import java.sql.Date;
 import java.io.Serializable;
 
 /**
@@ -17,7 +17,6 @@ import java.io.Serializable;
 @Builder
 public class Customer implements Serializable {
 
-    private @NonNull int id;
     private @NonNull String name;
     private @NonNull String email;
     private @NonNull String phone;
@@ -29,21 +28,19 @@ public class Customer implements Serializable {
     private String deactivationReason;
     private String notes;
 
-    // Modify toString() method to make the output more readable
+    // modify toString() method to make the output more readable
     @Override
     public String toString() {
-        return "Customer info: {\n" +
-                "id = " + id + ",\n" +
-                "name = " + name + ",\n" +
-                "email = " + email + ",\n" +
-                "phone = " + phone + ",\n" +
-                "age = " + age + ",\n" +
-                "gdprConsentStatus = " + gdprConsentStatus + ",\n" +
-                "customerProfileStatus = " + customerProfileStatus + ",\n" +
-                "profileCreatedDate = " + profileCreatedDate + ",\n" +
-                "profileDeactivatedDate = " + profileDeactivatedDate + ",\n" +
-                "deactivationReason = " + deactivationReason + ",\n" +
-                "notes = " + notes + "\n" +
-                "}";
+        return "Customer info: {" +
+                "name = \'" + name + "\',\n" +
+                "email = \'" + email + "\',\n" +
+                "phone = \'" + phone + "\',\n" +
+                "age = \'" + age + "\',\n" +
+                "gdprConsentStatus = \'" + gdprConsentStatus + "\',\n" +
+                "customerProfileStatus = \'" + customerProfileStatus + "\',\n" +
+                "profileCreatedDate = \'" + profileCreatedDate + "\',\n" +
+                "profileDeactivatedDate = \'" + profileDeactivatedDate + "\',\n" +
+                "deactivationReason = \'" + deactivationReason + "\',\n" +
+                "notes = \'" + notes + "\'";
     }
 }

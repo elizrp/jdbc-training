@@ -6,9 +6,12 @@ import helpers.PropertiesHelper;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SingletonHelper implements DatabaseFactory {
 
+    private static Logger logger = Logger.getLogger(SingletonHelper.class.getName());
     private static PropertiesHelper propertiesHelper;
     private static Connection connection;
 
@@ -25,7 +28,7 @@ public class SingletonHelper implements DatabaseFactory {
                         propertiesHelper.getPassword());
 
                 if (connection != null) {
-                    System.out.println("Successfully connected to database using Singleton pattern.");
+                    logger.log(Level.INFO, "Successfully connected to database using Singleton pattern.");
                 }
             } else {
                 System.out.println("Connection already exists.");
