@@ -2,8 +2,10 @@ package model;
 
 import lombok.*;
 
-import java.sql.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Class Customer constructed as JavaBean,
@@ -15,18 +17,30 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @Builder
+@Entity
 public class Customer implements Serializable {
 
+    @Column(name = "id")
     private @NonNull int id;
+    @Column(name = "name")
     private @NonNull String name;
+    @Column(name = "email")
     private @NonNull String email;
+    @Column(name = "phone")
     private @NonNull String phone;
+    @Column(name = "age")
     private @Builder.Default int age = 99;
+    @Column(name = "gdpr_consent_status")
     private @NonNull boolean gdprConsentStatus;
+    @Column(name = "customer_profile_status")
     private @NonNull boolean customerProfileStatus;
-    private @NonNull Date profileCreatedDate;
+    @Column(name = "profile_created_date")
+    private @NonNull java.util.Date profileCreatedDate;
+    @Column(name = "profile_deactivated_date")
     private Date profileDeactivatedDate;
+    @Column(name = "deactivation_reason")
     private String deactivationReason;
+    @Column(name = "notes")
     private String notes;
 
     public Customer() {

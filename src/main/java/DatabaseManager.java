@@ -1,12 +1,14 @@
 import constants.SqlQueries;
 import dao.CustomerDao;
 import dao.CustomerDaoResultSet;
+import dao.CustomerDaoResultSetMapper;
 import helpers.CustomerHelper;
 import helpers.FactoryHelper;
 import helpers.SingletonHelper;
 import model.Customer;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseManager {
@@ -61,7 +63,6 @@ public class DatabaseManager {
 //        // get the count of all records in the table
 //        customerDao.getRecordsCount();
 //
-//        customerDao = new CustomerDaoImpl();
 //        // extract a single object from the database by ID
 //        System.out.println(customerDao.getById(6));
 //
@@ -72,6 +73,10 @@ public class DatabaseManager {
 //
 //        // extract a list of objects from the database by a List of IDs
 //        System.out.println(customerDao.getByIds(customerIds));
+//
+//        customerDao = new CustomerDaoResultSetMapper();
+//        customerDao.getById(10);
+//        customerDao.getByIds(customerIds);
     }
 
     private static void testCreateDbConnectionFactory(FactoryHelper factoryHelper) {
@@ -109,8 +114,8 @@ public class DatabaseManager {
 
     private static void testCreateMultipleCustomers(int numberOfCustomers) {
         List<Customer> customerList = CustomerHelper.createMultipleCustomers(numberOfCustomers);
-        for (int index = 0; index < customerList.size(); index++) {
-            System.out.println(customerList.get(index).toString());
+        for (Customer customer : customerList) {
+            System.out.println(customer.toString());
         }
     }
 }

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public abstract class CustomerDao implements DAO<Customer> {
 
     private static final Logger logger = Logger.getLogger(CustomerDao.class.getName());
-    private static Connection connection;
+    protected static Connection connection;
     private static FactoryHelper factoryHelper;
 
     public CustomerDao() {
