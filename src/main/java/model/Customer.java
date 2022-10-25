@@ -36,6 +36,7 @@ public class Customer implements Serializable {
     @Override
     public String toString() {
         return "Customer info: {" +
+                "id = \'" + id + "\',\n" +
                 "name = \'" + name + "\',\n" +
                 "email = \'" + email + "\',\n" +
                 "phone = \'" + phone + "\',\n" +

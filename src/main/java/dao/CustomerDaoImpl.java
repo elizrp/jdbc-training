@@ -1,7 +1,6 @@
 package dao;
 
 import constants.SqlQueries;
-import helpers.CustomerDao;
 import helpers.FactoryHelper;
 import model.Customer;
 
@@ -166,7 +165,6 @@ public class CustomerDaoImpl implements CustomerDao<Customer> {
     }
 
     /**
-     * TODO:
      * Extracts a single customer from the database by ID.
      * Uses ResultSet for mapping db data to pojo.
      *
@@ -180,7 +178,7 @@ public class CustomerDaoImpl implements CustomerDao<Customer> {
 
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(
-                     String.format("select * from customers where id = %s", id))) {
+                     String.format(SqlQueries.GET_CUSTOMER_BY_ID, id))) {
 
             if (resultSet.next()) {
                 customer = new Customer();
@@ -206,7 +204,6 @@ public class CustomerDaoImpl implements CustomerDao<Customer> {
     }
 
     /**
-     * TODO:
      * Extracts a list of objects from the database by a List of IDs.
      * Uses ResultSet for mapping db data to pojo.
      *
@@ -219,7 +216,7 @@ public class CustomerDaoImpl implements CustomerDao<Customer> {
         List<Customer> customers = new ArrayList<>();
 
         try (Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(String.format("select * from customers where id in (%s)", ids
+             ResultSet resultSet = statement.executeQuery(String.format(SqlQueries.GET_CUSTOMERS_BY_IDS, ids
                      .stream()
                      .map(Object::toString)
                      .collect(Collectors.joining(", "))))) {

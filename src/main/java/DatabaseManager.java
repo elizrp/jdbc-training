@@ -34,6 +34,9 @@ public class DatabaseManager {
 //        // create Customer object to test CRUD operations
 //        Customer customer = CustomerHelper.createSingleCustomer();
 //
+//        // initialize customerDao to run CRUD operations
+//        customerDao = new CustomerDaoImpl();
+//
 //        // insert new customer
 //        customerDao.save(customer);
 //
@@ -57,18 +60,18 @@ public class DatabaseManager {
 //
 //        // get the count of all records in the table
 //        customerDao.getRecordsCount();
-
-        customerDao = new CustomerDaoImpl();
-        // extract a single object from the database by ID
+//
+//        customerDao = new CustomerDaoImpl();
+//        // extract a single object from the database by ID
 //        System.out.println(customerDao.getById(6));
-
-        List<Integer> customerIds = new ArrayList<>();
-        customerIds.add(30);
-        customerIds.add(7);
-        customerIds.add(9);
-
-        // extract a list of objects from the database by a List of IDs
-        System.out.println(customerDao.getByIds(customerIds));
+//
+//        List<Integer> customerIds = new ArrayList<>();
+//        customerIds.add(2);
+//        customerIds.add(7);
+//        customerIds.add(9);
+//
+//        // extract a list of objects from the database by a List of IDs
+//        System.out.println(customerDao.getByIds(customerIds));
     }
 
     private static void testCreateDbConnectionFactory(FactoryHelper factoryHelper) {
