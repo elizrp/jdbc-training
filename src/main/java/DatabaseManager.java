@@ -1,19 +1,19 @@
 import constants.SqlQueries;
-import dao.CustomerDaoImpl;
+import dao.CustomerDao;
+import dao.CustomerDaoResultSet;
 import helpers.CustomerHelper;
 import helpers.FactoryHelper;
 import helpers.SingletonHelper;
 import model.Customer;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseManager {
 
     private static FactoryHelper factoryHelper;
     private static SingletonHelper singletonHelper;
-    private static CustomerDaoImpl customerDao;
+    private static CustomerDao customerDao;
 
     public static void main(String[] args) throws SQLException {
 
@@ -35,7 +35,7 @@ public class DatabaseManager {
 //        Customer customer = CustomerHelper.createSingleCustomer();
 //
 //        // initialize customerDao to run CRUD operations
-//        customerDao = new CustomerDaoImpl();
+//        customerDao = new CustomerDaoResultSet();
 //
 //        // insert new customer
 //        customerDao.save(customer);
