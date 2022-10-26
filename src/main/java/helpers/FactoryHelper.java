@@ -15,7 +15,6 @@ public class FactoryHelper implements DatabaseFactoryHelper {
 
     @Override
     public Connection getConnection() {
-//        Connection connection = null;
 
         try {
             propertiesHelper = PropertiesHelper.getHelper();

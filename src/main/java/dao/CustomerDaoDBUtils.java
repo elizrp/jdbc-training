@@ -13,6 +13,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
+/**
+ * Class CustomerDaoDBUtils extends functionality of CustomerDao.
+ * Implements methods using Apache DBUtils.
+ */
 public class CustomerDaoDBUtils extends CustomerDao {
 
     /**

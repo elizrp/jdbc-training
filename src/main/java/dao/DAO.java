@@ -1,6 +1,5 @@
 package dao;
 
-import java.sql.Connection;
 import java.util.List;
 
 public interface DAO<T> {

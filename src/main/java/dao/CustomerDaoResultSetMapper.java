@@ -18,6 +18,13 @@ import java.util.stream.Collectors;
  */
 public class CustomerDaoResultSetMapper extends CustomerDao {
 
+    /**
+     * Extracts a single customer from the database by ID.
+     * Uses ResultSetMapper for mapping db data to pojo.
+     *
+     * @param id the id of the customer
+     * @return Customer object with corresponding id
+     */
     @Override
     public Customer getById(int id) {
 
@@ -44,6 +51,13 @@ public class CustomerDaoResultSetMapper extends CustomerDao {
         return customer;
     }
 
+    /**
+     * Extracts a list of objects from the database by a List of IDs.
+     * Uses ResultSetMapper for mapping db data to pojo.
+     *
+     * @param ids a list of ids of customers
+     * @return a list of Customer objects with corresponding ids
+     */
     @Override
     public List<Customer> getByIds(List<Integer> ids) {
 
