@@ -1,5 +1,6 @@
-package dao;
+package helpers;
 
+import dao.CustomerDao;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.persistence.Column;
@@ -12,9 +13,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ResultSetMapper<T> {
+public class ResultSetMapperHelper<T> {
 
-    private static final Logger logger = Logger.getLogger(ResultSetMapper.class.getName());
+    private static final Logger logger = Logger.getLogger(ResultSetMapperHelper.class.getName());
 
     /**
      * Maps database returned objects to T objects.
@@ -116,7 +117,7 @@ public class ResultSetMapper<T> {
                         }
                     }
                 } else {
-                    logger.log(Level.WARNING, "ResultSet is empty. Please check if database table is empty");
+                    logger.log(Level.WARNING, CustomerDao.EMPTY_RESULT_MESSAGE);
                 }
             } else {
                 return null;

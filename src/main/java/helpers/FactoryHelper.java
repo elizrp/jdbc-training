@@ -2,6 +2,7 @@ package helpers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -10,10 +11,11 @@ public class FactoryHelper implements DatabaseFactoryHelper {
     private static Logger logger = Logger.getLogger(FactoryHelper.class.getName());
 
     private static PropertiesHelper propertiesHelper;
+    private static Connection connection;
 
     @Override
     public Connection getConnection() {
-        Connection connection = null;
+//        Connection connection = null;
 
         try {
             propertiesHelper = PropertiesHelper.getHelper();
@@ -31,5 +33,14 @@ public class FactoryHelper implements DatabaseFactoryHelper {
         }
 
         return connection;
+    }
+
+    @Override
+    public void closeConnection() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

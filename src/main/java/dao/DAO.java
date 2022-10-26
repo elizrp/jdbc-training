@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.Connection;
 import java.util.List;
 
 public interface DAO<T> {
@@ -8,7 +9,7 @@ public interface DAO<T> {
 
     void update(T object, int customerId);
 
-    void delete(T object, int customerId);
+    void delete(int customerId);
 
     void deleteAll();
 

@@ -1,17 +1,14 @@
 package dao;
 
 import constants.SqlQueries;
-import helpers.FactoryHelper;
 import model.Customer;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -20,14 +17,12 @@ import java.util.stream.Collectors;
  */
 public class CustomerDaoResultSet extends CustomerDao {
 
-    private static final Logger logger = Logger.getLogger(CustomerDaoResultSet.class.getName());
-
     /**
      * Extracts a single customer from the database by ID.
      * Uses ResultSet for mapping db data to pojo.
      *
      * @param id the id of the customer
-     * @return Customer object
+     * @return Customer object with corresponding id
      */
     @Override
     public Customer getById(int id) {
@@ -52,7 +47,11 @@ public class CustomerDaoResultSet extends CustomerDao {
                 customer.setDeactivationReason(resultSet.getString(SqlQueries.CUSTOMERS_DEACTIVATION_REASON_COLUMN));
                 customer.setNotes(resultSet.getString(SqlQueries.CUSTOMERS_NOTES_COLUMN));
             } else {
-                logger.log(Level.WARNING, "The database did not return any data.");
+                logger.log(Level.WARNING, EMPTY_RESULT_MESSAGE);
+            }
+
+            if (customer != null) {
+                System.out.println(customer);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,7 +65,7 @@ public class CustomerDaoResultSet extends CustomerDao {
      * Uses ResultSet for mapping db data to pojo.
      *
      * @param ids a list of ids of customers
-     * @return a list of Customer objects
+     * @return a list of Customer objects with corresponding ids
      */
     @Override
     public List<Customer> getByIds(List<Integer> ids) {
@@ -97,9 +96,12 @@ public class CustomerDaoResultSet extends CustomerDao {
             }
 
             if (customers.isEmpty()) {
-                logger.log(Level.WARNING, "The database did not return any data.");
+                logger.log(Level.WARNING, EMPTY_RESULT_MESSAGE);
+            } else {
+                for (Customer customer : customers) {
+                    System.out.println(customer);
+                }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
