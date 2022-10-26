@@ -1,15 +1,12 @@
 package helpers;
 
-import helpers.DatabaseFactory;
-import helpers.PropertiesHelper;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SingletonHelper implements DatabaseFactory {
+public class SingletonHelper implements DatabaseFactoryHelper {
 
     private static Logger logger = Logger.getLogger(SingletonHelper.class.getName());
     private static PropertiesHelper propertiesHelper;

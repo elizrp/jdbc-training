@@ -1,21 +1,21 @@
 import constants.SqlQueries;
-import dao.CustomerDaoImpl;
+import dao.CustomerDao;
+import dao.CustomerDaoResultSet;
+import dao.CustomerDaoResultSetMapper;
 import helpers.CustomerHelper;
 import helpers.FactoryHelper;
 import helpers.SingletonHelper;
 import model.Customer;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseManager {
 
     private static FactoryHelper factoryHelper;
     private static SingletonHelper singletonHelper;
-    private static CustomerDaoImpl customerDao = new CustomerDaoImpl();
+    private static CustomerDao customerDao;
 
     public static void main(String[] args) throws SQLException {
 
@@ -35,6 +35,9 @@ public class DatabaseManager {
 //
 //        // create Customer object to test CRUD operations
 //        Customer customer = CustomerHelper.createSingleCustomer();
+//
+//        // initialize customerDao to run CRUD operations
+//        customerDao = new CustomerDaoResultSet();
 //
 //        // insert new customer
 //        customerDao.save(customer);
@@ -59,6 +62,21 @@ public class DatabaseManager {
 //
 //        // get the count of all records in the table
 //        customerDao.getRecordsCount();
+//
+//        // extract a single object from the database by ID
+//        System.out.println(customerDao.getById(6));
+//
+//        List<Integer> customerIds = new ArrayList<>();
+//        customerIds.add(2);
+//        customerIds.add(7);
+//        customerIds.add(9);
+//
+//        // extract a list of objects from the database by a List of IDs
+//        System.out.println(customerDao.getByIds(customerIds));
+//
+//        customerDao = new CustomerDaoResultSetMapper();
+//        customerDao.getById(10);
+//        customerDao.getByIds(customerIds);
     }
 
     private static void testCreateDbConnectionFactory(FactoryHelper factoryHelper) {
@@ -66,7 +84,7 @@ public class DatabaseManager {
         // passed in try-with-resources statement, object 'connection' will be automatically closed at the end
         try (Connection connection = factoryHelper.getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(SqlQueries.GET_ALL_CUSTOMERS);) {
+             ResultSet resultSet = statement.executeQuery(SqlQueries.GET_ALL_CUSTOMERS)) {
             while (resultSet.next()) {
                 System.out.println(resultSet.getString(SqlQueries.CUSTOMERS_NAME_COLUMN));
             }
@@ -80,7 +98,7 @@ public class DatabaseManager {
         // passed in try-with-resources statement, object 'connection' will be automatically closed at the end
         try (Connection connection = singletonHelper.getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(SqlQueries.GET_ALL_CUSTOMERS);) {
+             ResultSet resultSet = statement.executeQuery(SqlQueries.GET_ALL_CUSTOMERS)) {
             while (resultSet.next()) {
                 System.out.println(resultSet.getString(SqlQueries.CUSTOMERS_NAME_COLUMN));
             }
@@ -96,8 +114,8 @@ public class DatabaseManager {
 
     private static void testCreateMultipleCustomers(int numberOfCustomers) {
         List<Customer> customerList = CustomerHelper.createMultipleCustomers(numberOfCustomers);
-        for (int index = 0; index < customerList.size(); index++) {
-            System.out.println(customerList.get(index).toString());
+        for (Customer customer : customerList) {
+            System.out.println(customer.toString());
         }
     }
 }

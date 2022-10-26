@@ -1,7 +1,6 @@
 package dao;
 
 import constants.SqlQueries;
-import helpers.CustomerDao;
 import helpers.FactoryHelper;
 import model.Customer;
 
@@ -10,14 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
-public class CustomerDaoImpl implements CustomerDao<Customer> {
+public abstract class CustomerDao implements DAO<Customer> {
 
-    private static Logger logger = Logger.getLogger(CustomerDaoImpl.class.getName());
-    private static Connection connection;
+    private static final Logger logger = Logger.getLogger(CustomerDao.class.getName());
+    protected static Connection connection;
     private static FactoryHelper factoryHelper;
 
-    public CustomerDaoImpl() {
+    public CustomerDao() {
         factoryHelper = new FactoryHelper();
         connection = factoryHelper.getConnection();
     }
@@ -162,31 +162,5 @@ public class CustomerDaoImpl implements CustomerDao<Customer> {
         System.out.println(String.format("Total count of records in customer table: %d", count));
 
         return count;
-    }
-
-    /**
-     * TODO:
-     * Extracts a single customer from the database by ID
-     *
-     * @param id the id of the customer
-     * @return Customer object
-     */
-    @Override
-    public Customer getById(int id) {
-        logger.log(Level.INFO, "This method will be implemented in the next story.");
-        return null;
-    }
-
-    /**
-     * TODO:
-     * Extracts a list of objects from the database by a List of IDs
-     *
-     * @param ids a list of ids of customers
-     * @return a list of Customer objects
-     */
-    @Override
-    public List<Customer> getByIds(List<Integer> ids) {
-        logger.log(Level.INFO, "This method will be implemented in the next story.");
-        return null;
     }
 }

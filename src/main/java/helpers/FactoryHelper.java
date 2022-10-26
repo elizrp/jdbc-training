@@ -1,15 +1,11 @@
 package helpers;
 
-import dao.CustomerDaoImpl;
-import helpers.DatabaseFactory;
-import helpers.PropertiesHelper;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class FactoryHelper implements DatabaseFactory {
+public class FactoryHelper implements DatabaseFactoryHelper {
 
     private static Logger logger = Logger.getLogger(FactoryHelper.class.getName());
 

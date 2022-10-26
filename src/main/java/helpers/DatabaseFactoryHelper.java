@@ -2,7 +2,7 @@ package helpers;
 
 import java.sql.Connection;
 
-public interface DatabaseFactory {
+public interface DatabaseFactoryHelper {
 
     Connection getConnection();
 }
