@@ -21,13 +21,6 @@ import java.util.stream.Collectors;
 public class CustomerDaoResultSet extends CustomerDao {
 
     private static final Logger logger = Logger.getLogger(CustomerDaoResultSet.class.getName());
-    private static Connection connection;
-    private static FactoryHelper factoryHelper;
-
-    public CustomerDaoResultSet() {
-        factoryHelper = new FactoryHelper();
-        connection = factoryHelper.getConnection();
-    }
 
     /**
      * Extracts a single customer from the database by ID.
