@@ -4,16 +4,19 @@ import constants.SqlQueries;
 import helpers.FactoryHelper;
 import model.Customer;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 public abstract class CustomerDao implements DAO<Customer> {
 
-    private static final Logger logger = Logger.getLogger(CustomerDao.class.getName());
+    public static final Logger logger = Logger.getLogger(CustomerDao.class.getName());
+    public static final String EMPTY_RESULT_MESSAGE = "Query did not return any data. Please check if database table is empty.";
     protected static Connection connection;
     private static FactoryHelper factoryHelper;
 
@@ -23,13 +26,13 @@ public abstract class CustomerDao implements DAO<Customer> {
     }
 
     /**
-     * Inserts a new customer in the table.
+     * Inserts/Saves a new customer in the table.
      *
-     * @param customer
+     * @param customer customer to be inserted/saved
      */
     @Override
     public void save(Customer customer) {
-        try (Statement statement = connection.createStatement();) {
+        try (Statement statement = connection.createStatement()) {
 
             statement.executeUpdate(String.format(SqlQueries.INSERT_CUSTOMER, "default", "\'" + customer.getName() + "\'", "\'" + customer.getEmail() + "\'", "\'" + customer.getPhone() + "\'", customer.getAge(), customer.isGdprConsentStatus(), customer.isCustomerProfileStatus(), "\'" + customer.getProfileCreatedDate() + "\'", "\'" + customer.getProfileDeactivatedDate() + "\'", "\'" + customer.getDeactivationReason() + "\'", "\'" + customer.getNotes() + "\'"));
 
@@ -43,7 +46,8 @@ public abstract class CustomerDao implements DAO<Customer> {
     /**
      * Updates data of a customer.
      *
-     * @param customer
+     * @param customer   customer object with properties to be used for the update
+     * @param customerId id of the customer to be updated
      */
     @Override
     public void update(Customer customer, int customerId) {
@@ -60,10 +64,10 @@ public abstract class CustomerDao implements DAO<Customer> {
     /**
      * Deletes a customer from the table.
      *
-     * @param customer
+     * @param customerId id of the customer to be deleted
      */
     @Override
-    public void delete(Customer customer, int customerId) {
+    public void delete(int customerId) {
 
         try (Statement statement = connection.createStatement();) {
 
@@ -93,19 +97,20 @@ public abstract class CustomerDao implements DAO<Customer> {
     /**
      * Retrieves a random id from customer table.
      *
-     * @return id
+     * @return random id of customer
      */
     @Override
     public int getRandomId() {
 
         int randomId = 0;
 
-        try (Statement statement = connection.createStatement();) {
-            try (ResultSet resultSet = statement.executeQuery(SqlQueries.GET_RANDOM_ID);) {
-                if (resultSet.next()) {
-                    randomId = resultSet.getInt(1);
-                }
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(SqlQueries.GET_RANDOM_ID)) {
+
+            if (resultSet.next()) {
+                randomId = resultSet.getInt(1);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -119,19 +124,20 @@ public abstract class CustomerDao implements DAO<Customer> {
      * Retrieves a list of random ids from customer table.
      *
      * @param numberOfIds number of ids to be retrieved
-     * @return a list of retrieved ids
+     * @return a list of random ids
      */
     @Override
     public List<Integer> getRandomIds(int numberOfIds) {
 
         List<Integer> ids = new ArrayList<>();
 
-        try (Statement statement = connection.createStatement();) {
-            try (ResultSet resultSet = statement.executeQuery(String.format(SqlQueries.GET_RANDOM_IDS, numberOfIds));) {
-                while (resultSet.next()) {
-                    ids.add(resultSet.getInt(1));
-                }
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(String.format(SqlQueries.GET_RANDOM_IDS, numberOfIds))) {
+
+            while (resultSet.next()) {
+                ids.add(resultSet.getInt(1));
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -149,12 +155,13 @@ public abstract class CustomerDao implements DAO<Customer> {
 
         int count = 0;
 
-        try (Statement statement = connection.createStatement();) {
-            try (ResultSet resultSet = statement.executeQuery(SqlQueries.COUNT_RECORDS);) {
-                if (resultSet.next()) {
-                    count = resultSet.getInt(1);
-                }
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(SqlQueries.COUNT_RECORDS)) {
+
+            if (resultSet.next()) {
+                count = resultSet.getInt(1);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

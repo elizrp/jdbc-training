@@ -36,4 +36,13 @@ public class SingletonHelper implements DatabaseFactoryHelper {
 
         return connection;
     }
+
+    @Override
+    public void closeConnection() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

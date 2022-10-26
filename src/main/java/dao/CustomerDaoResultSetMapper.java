@@ -1,10 +1,9 @@
 package dao;
 
 import constants.SqlQueries;
-import helpers.FactoryHelper;
+import helpers.ResultSetMapperHelper;
 import model.Customer;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,8 +18,6 @@ import java.util.stream.Collectors;
  */
 public class CustomerDaoResultSetMapper extends CustomerDao {
 
-    private static final Logger logger = Logger.getLogger(CustomerDaoResultSetMapper.class.getName());
-
     @Override
     public Customer getById(int id) {
 
@@ -30,7 +27,7 @@ public class CustomerDaoResultSetMapper extends CustomerDao {
              ResultSet resultSet = statement.executeQuery(
                      String.format(SqlQueries.GET_CUSTOMER_BY_ID, id))) {
 
-            ResultSetMapper<Customer> resultSetMapper = new ResultSetMapper<>();
+            ResultSetMapperHelper<Customer> resultSetMapper = new ResultSetMapperHelper<>();
 
             // simple JDBC code to run SQL query and populate resultSet - END
             customer = resultSetMapper.mapResultSetToSingleObject(resultSet, Customer.class);
@@ -38,7 +35,7 @@ public class CustomerDaoResultSetMapper extends CustomerDao {
             if (customer != null) {
                 System.out.println(customer);
             } else {
-                logger.log(Level.INFO, "ResultSet is empty. Please check if database table is empty");
+                logger.log(Level.INFO, EMPTY_RESULT_MESSAGE);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -50,7 +47,7 @@ public class CustomerDaoResultSetMapper extends CustomerDao {
     @Override
     public List<Customer> getByIds(List<Integer> ids) {
 
-        List<Customer> customersList = null;
+        List<Customer> customers = null;
 
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(String.format(SqlQueries.GET_CUSTOMERS_BY_IDS, ids
@@ -58,22 +55,22 @@ public class CustomerDaoResultSetMapper extends CustomerDao {
                      .map(Object::toString)
                      .collect(Collectors.joining(", "))))) {
 
-            ResultSetMapper<Customer> resultSetMapper = new ResultSetMapper<>();
+            ResultSetMapperHelper<Customer> resultSetMapper = new ResultSetMapperHelper<>();
 
             // simple JDBC code to run SQL query and populate resultSet
-            customersList = resultSetMapper.mapResultSetToMultipleObjects(resultSet, Customer.class);
+            customers = resultSetMapper.mapResultSetToMultipleObjects(resultSet, Customer.class);
             // print out the list retrieved from database
-            if (customersList != null) {
-                for (Customer customer : customersList) {
+            if (customers != null) {
+                for (Customer customer : customers) {
                     System.out.println(customer);
                 }
             } else {
-                logger.log(Level.INFO, "ResultSet is empty. Please check if database table is empty");
+                logger.log(Level.INFO, EMPTY_RESULT_MESSAGE);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return customersList;
+        return customers;
     }
 }
