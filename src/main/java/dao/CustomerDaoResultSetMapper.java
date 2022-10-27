@@ -2,8 +2,10 @@ package dao;
 
 import constants.SqlQueries;
 import helpers.ResultSetMapperHelper;
+import helpers.staticSingletonConnection.StaticSingletonConnectionHelper;
 import model.Customer;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -30,7 +32,8 @@ public class CustomerDaoResultSetMapper extends CustomerDao {
 
         Customer customer = null;
 
-        try (Statement statement = connection.createStatement();
+        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
+             Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(
                      String.format(SqlQueries.GET_CUSTOMER_BY_ID, id))) {
 
@@ -63,7 +66,8 @@ public class CustomerDaoResultSetMapper extends CustomerDao {
 
         List<Customer> customers = null;
 
-        try (Statement statement = connection.createStatement();
+        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
+             Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(String.format(SqlQueries.GET_CUSTOMERS_BY_IDS, ids
                      .stream()
                      .map(Object::toString)

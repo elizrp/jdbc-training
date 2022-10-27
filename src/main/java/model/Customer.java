@@ -3,7 +3,6 @@ package model;
 import lombok.*;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -20,7 +19,7 @@ import java.util.Date;
 public class Customer implements Serializable {
 
     @Column(name = "id")
-    private @NonNull int id;
+    private @NonNull Integer id;
     @Column(name = "name")
     private @NonNull String name;
     @Column(name = "email")
@@ -28,17 +27,19 @@ public class Customer implements Serializable {
     @Column(name = "phone")
     private @NonNull String phone;
     @Column(name = "age")
-    private @Builder.Default int age = 99;
+    private @Builder.Default Integer age = 99;
     @Column(name = "gdpr_consent_status")
     private @NonNull boolean gdprConsentStatus;
     @Column(name = "customer_profile_status")
     private @NonNull boolean customerProfileStatus;
     @Column(name = "profile_created_date")
-    private @NonNull java.util.Date profileCreatedDate;
+    private @NonNull Date profileCreatedDate;
     @Column(name = "profile_deactivated_date")
     private Date profileDeactivatedDate;
     @Column(name = "deactivation_reason")
     private String deactivationReason;
     @Column(name = "notes")
     private String notes;
+
+    private Address address;
 }

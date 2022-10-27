@@ -77,13 +77,13 @@ public class DatabaseManager {
 //
 //        // extract a list of objects from the database by a List of IDs
 //        // create a list of customers first
-//        List<Integer> customerIds = new ArrayList<>();
-//        customerIds.add(2);
-//        customerIds.add(7);
-//        customerIds.add(9);
-//        // 1. using ResultSet
-//        customerDao = new CustomerDaoResultSet();
-//        customerDao.getByIds(customerIds);
+        List<Integer> customerIds = new ArrayList<>();
+        customerIds.add(2);
+        customerIds.add(7);
+        customerIds.add(9);
+        // 1. using ResultSet
+        customerDao = new CustomerDaoResultSet();
+        customerDao.getByIds(customerIds);
 //        // 2. using ResultSetMapper
 //        customerDao = new CustomerDaoResultSetMapper();
 //        customerDao.getByIds(customerIds);
