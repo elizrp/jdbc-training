@@ -15,11 +15,9 @@ import java.util.List;
 public class CustomerHelper {
 
     private static Faker faker = new Faker();
-    private static Customer customer;
 
-    public static Customer createSingleCustomer() {
-
-        customer = Customer.builder()
+    public static Customer createCustomer() {
+        return Customer.builder()
                 .name(faker.name().fullName())
                 .email(faker.internet().emailAddress())
                 .phone(faker.phoneNumber().cellPhone())
@@ -31,33 +29,14 @@ public class CustomerHelper {
                 .deactivationReason(faker.lorem().characters())
                 .notes(faker.lorem().characters())
                 .build();
-
-        return customer;
     }
 
-    public static List<Customer> createMultipleCustomers(int numberOfCustomers) {
-
+    public static List<Customer> createCustomers(int numberOfCustomers) {
         List<Customer> customers = new ArrayList<>();
-
         while (numberOfCustomers > 0) {
-            customer = Customer.builder()
-                    .name(faker.name().fullName())
-                    .email(faker.internet().emailAddress())
-                    .phone(faker.phoneNumber().cellPhone())
-                    .age(faker.number().numberBetween(18, 100))
-                    .gdprConsentStatus(faker.bool().bool())
-                    .customerProfileStatus(faker.bool().bool())
-                    .profileCreatedDate(Date.valueOf(LocalDate.now()))
-                    .profileDeactivatedDate(Date.valueOf(LocalDate.now()))
-                    .deactivationReason(faker.lorem().characters())
-                    .notes(faker.lorem().characters())
-                    .build();
-
-            customers.add(customer);
-
+            customers.add(createCustomer());
             numberOfCustomers--;
         }
-
         return customers;
     }
 }

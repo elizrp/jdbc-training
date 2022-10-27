@@ -6,5 +6,4 @@ public interface DatabaseFactoryHelper {
 
     Connection getConnection();
 
-    void closeConnection();
 }

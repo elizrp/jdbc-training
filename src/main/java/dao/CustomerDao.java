@@ -1,7 +1,7 @@
 package dao;
 
 import constants.SqlQueries;
-import helpers.FactoryHelper;
+import helpers.staticSingletonConnection.StaticSingletonConnectionHelper;
 import model.Customer;
 
 import java.sql.Connection;
@@ -17,13 +17,6 @@ public abstract class CustomerDao implements DAO<Customer> {
 
     public static final Logger logger = Logger.getLogger(CustomerDao.class.getName());
     public static final String EMPTY_RESULT_MESSAGE = "Query did not return any data. Please check if database table is empty.";
-    protected static Connection connection;
-    private static FactoryHelper factoryHelper;
-
-    public CustomerDao() {
-        factoryHelper = new FactoryHelper();
-        connection = factoryHelper.getConnection();
-    }
 
     /**
      * Inserts/Saves a new customer in the table.
@@ -32,9 +25,10 @@ public abstract class CustomerDao implements DAO<Customer> {
      */
     @Override
     public void save(Customer customer) {
-        try (Statement statement = connection.createStatement()) {
+        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
+             Statement statement = connection.createStatement()) {
 
-            statement.executeUpdate(String.format(SqlQueries.INSERT_CUSTOMER, "default", "\'" + customer.getName() + "\'", "\'" + customer.getEmail() + "\'", "\'" + customer.getPhone() + "\'", customer.getAge(), customer.isGdprConsentStatus(), customer.isCustomerProfileStatus(), "\'" + customer.getProfileCreatedDate() + "\'", "\'" + customer.getProfileDeactivatedDate() + "\'", "\'" + customer.getDeactivationReason() + "\'", "\'" + customer.getNotes() + "\'"));
+            statement.executeUpdate(String.format(SqlQueries.INSERT_CUSTOMER, customer.getName(), customer.getEmail(), customer.getPhone(), customer.getAge(), customer.isGdprConsentStatus(), customer.isCustomerProfileStatus(), customer.getProfileCreatedDate(), customer.getProfileDeactivatedDate(), customer.getDeactivationReason(), customer.getNotes()));
 
             logger.log(Level.INFO, "Customer is successfully saved in the database.");
 
@@ -51,9 +45,10 @@ public abstract class CustomerDao implements DAO<Customer> {
      */
     @Override
     public void update(Customer customer, int customerId) {
-        try (Statement statement = connection.createStatement();) {
+        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
+             Statement statement = connection.createStatement()) {
 
-            statement.executeUpdate(String.format(SqlQueries.UPDATE_CUSTOMER, "\'" + customer.getName() + "\'", "\'" + customer.getEmail() + "\'", "\'" + customer.getPhone() + "\'", customer.getAge(), customer.isGdprConsentStatus(), customer.isCustomerProfileStatus(), "\'" + customer.getProfileCreatedDate() + "\'", "\'" + customer.getProfileDeactivatedDate() + "\'", "\'" + customer.getDeactivationReason() + "\'", "\'" + customer.getNotes() + "\'", "\'" + customerId + "\'"));
+            statement.executeUpdate(String.format(SqlQueries.UPDATE_CUSTOMER, customer.getName(), customer.getEmail(), customer.getPhone(), customer.getAge(), customer.isGdprConsentStatus(), customer.isCustomerProfileStatus(), customer.getProfileCreatedDate(), customer.getProfileDeactivatedDate(), customer.getDeactivationReason(), customer.getNotes(), customerId));
 
             logger.log(Level.INFO, String.format("Customer with id = %d was successfully updated.", customerId));
         } catch (SQLException e) {
@@ -69,9 +64,10 @@ public abstract class CustomerDao implements DAO<Customer> {
     @Override
     public void delete(int customerId) {
 
-        try (Statement statement = connection.createStatement();) {
+        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
+             Statement statement = connection.createStatement()) {
 
-            statement.executeUpdate(String.format(SqlQueries.DELETE_BY_ID, "\'" + customerId + "\'"));
+            statement.executeUpdate(String.format(SqlQueries.DELETE_BY_ID, customerId));
 
             logger.log(Level.INFO, String.format("Customer with id = %d was successfully deleted from the database.", customerId));
         } catch (SQLException e) {
@@ -84,7 +80,8 @@ public abstract class CustomerDao implements DAO<Customer> {
      */
     @Override
     public void deleteAll() {
-        try (Statement statement = connection.createStatement();) {
+        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
+             Statement statement = connection.createStatement()) {
 
             statement.executeUpdate(SqlQueries.DELETE_ALL);
 
@@ -104,7 +101,8 @@ public abstract class CustomerDao implements DAO<Customer> {
 
         int randomId = 0;
 
-        try (Statement statement = connection.createStatement();
+        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
+             Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(SqlQueries.GET_RANDOM_ID)) {
 
             if (resultSet.next()) {
@@ -131,7 +129,8 @@ public abstract class CustomerDao implements DAO<Customer> {
 
         List<Integer> ids = new ArrayList<>();
 
-        try (Statement statement = connection.createStatement();
+        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
+             Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(String.format(SqlQueries.GET_RANDOM_IDS, numberOfIds))) {
 
             while (resultSet.next()) {
@@ -155,7 +154,8 @@ public abstract class CustomerDao implements DAO<Customer> {
 
         int count = 0;
 
-        try (Statement statement = connection.createStatement();
+        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
+             Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(SqlQueries.COUNT_RECORDS)) {
 
             if (resultSet.next()) {

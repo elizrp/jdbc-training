@@ -13,11 +13,10 @@ import java.util.Date;
  * uses lombok annotations for code optimization,
  * annotation @AllArgsConstructor is necessary for the @Builder annotation
  */
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
 public class Customer implements Serializable {
 
     @Column(name = "id")
@@ -42,24 +41,4 @@ public class Customer implements Serializable {
     private String deactivationReason;
     @Column(name = "notes")
     private String notes;
-
-    public Customer() {
-    }
-
-    // modify toString() method to make the output more readable
-    @Override
-    public String toString() {
-        return "Customer info: {" +
-                "id = \'" + id + "\',\n" +
-                "name = \'" + name + "\',\n" +
-                "email = \'" + email + "\',\n" +
-                "phone = \'" + phone + "\',\n" +
-                "age = \'" + age + "\',\n" +
-                "gdprConsentStatus = \'" + gdprConsentStatus + "\',\n" +
-                "customerProfileStatus = \'" + customerProfileStatus + "\',\n" +
-                "profileCreatedDate = \'" + profileCreatedDate + "\',\n" +
-                "profileDeactivatedDate = \'" + profileDeactivatedDate + "\',\n" +
-                "deactivationReason = \'" + deactivationReason + "\',\n" +
-                "notes = \'" + notes + "\'";
-    }
 }

@@ -1,4 +1,7 @@
-package helpers;
+package helpers.singletonConnection;
+
+import helpers.DatabaseFactoryHelper;
+import helpers.PropertiesHelper;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,10 +9,10 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SingletonHelper implements DatabaseFactoryHelper {
+public class SingletonConnectionHelper implements DatabaseFactoryHelper {
 
-    private static Logger logger = Logger.getLogger(SingletonHelper.class.getName());
-    private static PropertiesHelper propertiesHelper;
+    private Logger logger = Logger.getLogger(SingletonConnectionHelper.class.getName());
+    private PropertiesHelper propertiesHelper;
     private static Connection connection;
 
     @Override
@@ -33,16 +36,6 @@ public class SingletonHelper implements DatabaseFactoryHelper {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return connection;
-    }
-
-    @Override
-    public void closeConnection() {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 }
