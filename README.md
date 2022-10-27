@@ -13,7 +13,8 @@ This is a project which uses JDBC for database management and testing.
 
 ### Structure
 
-- Two helper classes that create db connection via different design patterns.
-- Sample data is generated with the help of JavaFaker -> implemented in CustomerHelper class
-- CustomerDaoImpl class which implements CRUD operations.
-- All operations can be tested through the main() method in DatabaseManager class.
+- Two helper classes that create db connection via different design patterns
+- Sample data is generated with the help of JavaFaker -> implemented in CustomerHelper class.
+- CustomerDao class which implements CRUD operations
+- Different implementations of mapping result data can be found in CustomerDaoResultSet, CustomerDaoResultSetMapper and CustomerDaoDBUtils
+- All operations can be tested through the main() method in DatabaseManager class
