@@ -39,8 +39,8 @@ public class CustomerDaoResultSetMapper extends CustomerDao {
 
             ResultSetMapperHelper<Customer> resultSetMapper = new ResultSetMapperHelper<>();
 
-            // simple JDBC code to run SQL query and populate resultSet - END
-            customer = resultSetMapper.mapResultSetToSingleObject(resultSet, Customer.class);
+            // simple JDBC code to run SQL query and populate resultSet
+            customer = resultSetMapper.mapResultSetToObject(resultSet, Customer.class);
             // print out the list retrieved from database
             if (customer != null) {
                 System.out.println(customer);
@@ -76,7 +76,7 @@ public class CustomerDaoResultSetMapper extends CustomerDao {
             ResultSetMapperHelper<Customer> resultSetMapper = new ResultSetMapperHelper<>();
 
             // simple JDBC code to run SQL query and populate resultSet
-            customers = resultSetMapper.mapResultSetToMultipleObjects(resultSet, Customer.class);
+            customers = resultSetMapper.mapResultSetToObjects(resultSet, Customer.class);
             // print out the list retrieved from database
             if (customers != null) {
                 for (Customer customer : customers) {

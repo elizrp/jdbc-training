@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,7 +25,7 @@ public class ResultSetMapperHelper<T> {
      * @param outputClass the class to be mapped to
      * @return a list of T objects
      */
-    public List<T> mapResultSetToMultipleObjects(ResultSet resultSet, Class outputClass) {
+    public List<T> mapResultSetToObjects(ResultSet resultSet, Class outputClass) {
 
         List<T> outputList = null;
 
@@ -83,7 +84,7 @@ public class ResultSetMapperHelper<T> {
      * @param outputClass the class to be mapped to
      * @return a T object
      */
-    public T mapResultSetToSingleObject(ResultSet resultSet, Class outputClass) {
+    public T mapResultSetToObject(ResultSet resultSet, Class outputClass) {
 
         T outputObject = null;
 

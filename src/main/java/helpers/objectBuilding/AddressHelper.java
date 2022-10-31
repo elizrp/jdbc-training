@@ -1,14 +1,15 @@
-package helpers;
+package helpers.objectBuilding;
 
 import com.github.javafaker.Faker;
 import model.Address;
-import model.Customer;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class AddressHelper contains methods for creating one or more Address objects,
+ * sample data is generated using JavaFaker
+ */
 public class AddressHelper {
 
     private static Faker faker = new Faker();
@@ -19,12 +20,8 @@ public class AddressHelper {
                 .city(faker.address().cityName())
                 .province(faker.address().cityName())
                 .state(faker.address().state())
-                .postalCode(faker.address().bool().bool())
-                .customerProfileStatus(faker.bool().bool())
-                .profileCreatedDate(Date.valueOf(LocalDate.now()))
-                .profileDeactivatedDate(Date.valueOf(LocalDate.now()))
-                .deactivationReason(faker.lorem().characters())
-                .notes(faker.lorem().characters())
+                .postalCode(Integer.parseInt(faker.address().countryCode()))
+                .country(faker.address().country())
                 .build();
     }
 

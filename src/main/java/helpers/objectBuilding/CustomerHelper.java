@@ -1,4 +1,4 @@
-package helpers;
+package helpers.objectBuilding;
 
 import com.github.javafaker.Faker;
 import model.Customer;

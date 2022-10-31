@@ -1,6 +1,7 @@
 package dao;
 
 import constants.SqlQueries;
+import helpers.DaoHelper;
 import helpers.staticSingletonConnection.StaticSingletonConnectionHelper;
 import model.Customer;
 
@@ -13,9 +14,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public abstract class CustomerDao implements DAO<Customer> {
+public abstract class CustomerDao implements DAO<Customer>, SqlQueries {
 
     public static final Logger logger = Logger.getLogger(CustomerDao.class.getName());
+    private static DaoHelper daoHelper = new DaoHelper();
     public static final String EMPTY_RESULT_MESSAGE = "Query did not return any data. Please check if database table is empty.";
 
     /**
@@ -28,7 +30,7 @@ public abstract class CustomerDao implements DAO<Customer> {
         try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
              Statement statement = connection.createStatement()) {
 
-            statement.executeUpdate(String.format(SqlQueries.INSERT_CUSTOMER, customer.getName(), customer.getEmail(), customer.getPhone(), customer.getAge(), customer.isGdprConsentStatus(), customer.isCustomerProfileStatus(), customer.getProfileCreatedDate(), customer.getProfileDeactivatedDate(), customer.getDeactivationReason(), customer.getNotes()));
+            statement.executeUpdate(String.format(INSERT_CUSTOMER, customer.getName(), customer.getEmail(), customer.getPhone(), customer.getAge(), customer.isGdprConsentStatus(), customer.isCustomerProfileStatus(), customer.getProfileCreatedDate(), customer.getProfileDeactivatedDate(), customer.getDeactivationReason(), customer.getNotes()));
 
             logger.log(Level.INFO, "Customer is successfully saved in the database.");
 
@@ -48,7 +50,7 @@ public abstract class CustomerDao implements DAO<Customer> {
         try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
              Statement statement = connection.createStatement()) {
 
-            statement.executeUpdate(String.format(SqlQueries.UPDATE_CUSTOMER, customer.getName(), customer.getEmail(), customer.getPhone(), customer.getAge(), customer.isGdprConsentStatus(), customer.isCustomerProfileStatus(), customer.getProfileCreatedDate(), customer.getProfileDeactivatedDate(), customer.getDeactivationReason(), customer.getNotes(), customerId));
+            statement.executeUpdate(String.format(UPDATE_CUSTOMER, customer.getName(), customer.getEmail(), customer.getPhone(), customer.getAge(), customer.isGdprConsentStatus(), customer.isCustomerProfileStatus(), customer.getProfileCreatedDate(), customer.getProfileDeactivatedDate(), customer.getDeactivationReason(), customer.getNotes(), customerId));
 
             logger.log(Level.INFO, String.format("Customer with id = %d was successfully updated.", customerId));
         } catch (SQLException e) {
@@ -63,16 +65,7 @@ public abstract class CustomerDao implements DAO<Customer> {
      */
     @Override
     public void delete(int customerId) {
-
-        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
-             Statement statement = connection.createStatement()) {
-
-            statement.executeUpdate(String.format(SqlQueries.DELETE_BY_ID, customerId));
-
-            logger.log(Level.INFO, String.format("Customer with id = %d was successfully deleted from the database.", customerId));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        daoHelper.delete(customerId, CUSTOMERS_TABLE);
     }
 
     /**
@@ -80,15 +73,7 @@ public abstract class CustomerDao implements DAO<Customer> {
      */
     @Override
     public void deleteAll() {
-        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
-             Statement statement = connection.createStatement()) {
-
-            statement.executeUpdate(SqlQueries.DELETE_ALL);
-
-            logger.log(Level.INFO, "All records successfully deleted from table customers.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        daoHelper.deleteAll(CUSTOMERS_TABLE);
     }
 
     /**
@@ -98,24 +83,7 @@ public abstract class CustomerDao implements DAO<Customer> {
      */
     @Override
     public int getRandomId() {
-
-        int randomId = 0;
-
-        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(SqlQueries.GET_RANDOM_ID)) {
-
-            if (resultSet.next()) {
-                randomId = resultSet.getInt(1);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println(String.format("Random ID: %d", randomId));
-
-        return randomId;
+        return daoHelper.getRandomId(CUSTOMERS_TABLE);
     }
 
     /**
@@ -126,22 +94,7 @@ public abstract class CustomerDao implements DAO<Customer> {
      */
     @Override
     public List<Integer> getRandomIds(int numberOfIds) {
-
-        List<Integer> ids = new ArrayList<>();
-
-        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(String.format(SqlQueries.GET_RANDOM_IDS, numberOfIds))) {
-
-            while (resultSet.next()) {
-                ids.add(resultSet.getInt(1));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return ids;
+        return daoHelper.getRandomIds(numberOfIds, CUSTOMERS_TABLE);
     }
 
     /**
@@ -151,23 +104,6 @@ public abstract class CustomerDao implements DAO<Customer> {
      */
     @Override
     public int getRecordsCount() {
-
-        int count = 0;
-
-        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(SqlQueries.COUNT_RECORDS)) {
-
-            if (resultSet.next()) {
-                count = resultSet.getInt(1);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println(String.format("Total count of records in customer table: %d", count));
-
-        return count;
+        return daoHelper.getRecordsCount(CUSTOMERS_TABLE);
     }
 }

@@ -19,7 +19,7 @@ import java.util.Date;
 public class Customer implements Serializable {
 
     @Column(name = "id")
-    private @NonNull Integer id;
+    private @NonNull int id;
     @Column(name = "name")
     private @NonNull String name;
     @Column(name = "email")
@@ -27,7 +27,7 @@ public class Customer implements Serializable {
     @Column(name = "phone")
     private @NonNull String phone;
     @Column(name = "age")
-    private @Builder.Default Integer age = 99;
+    private @Builder.Default int age = 99;
     @Column(name = "gdpr_consent_status")
     private @NonNull boolean gdprConsentStatus;
     @Column(name = "customer_profile_status")
@@ -42,4 +42,5 @@ public class Customer implements Serializable {
     private String notes;
 
     private Address address;
+    private Order order;
 }

@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * Class CustomerDaoResultSet extends functionality of CustomerDao.
  * Implements methods using ResultSet.
  */
-public class CustomerDaoResultSet extends CustomerDao {
+public class CustomerDaoResultSet extends CustomerDao implements SqlQueries {
 
     /**
      * Extracts a single customer from the database by ID.
@@ -34,21 +34,21 @@ public class CustomerDaoResultSet extends CustomerDao {
         try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(
-                     String.format(SqlQueries.GET_CUSTOMER_BY_ID, id))) {
+                     String.format(GET_CUSTOMER_BY_ID, id))) {
 
             if (resultSet.next()) {
                 customer = new Customer();
-                customer.setId(resultSet.getInt(SqlQueries.CUSTOMERS_ID_COLUMN));
-                customer.setName(resultSet.getString(SqlQueries.CUSTOMERS_NAME_COLUMN));
-                customer.setEmail(resultSet.getString(SqlQueries.CUSTOMERS_EMAIL_COLUMN));
-                customer.setPhone(resultSet.getString(SqlQueries.CUSTOMERS_PHONE_COLUMN));
-                customer.setAge(resultSet.getInt(SqlQueries.CUSTOMERS_AGE_COLUMN));
-                customer.setGdprConsentStatus(resultSet.getBoolean(SqlQueries.CUSTOMERS_GDPR_CONSENT_STATUS_COLUMN));
-                customer.setCustomerProfileStatus(resultSet.getBoolean(SqlQueries.CUSTOMERS_CUSTOMER_PROFILE_STATUS_COLUMN));
-                customer.setProfileCreatedDate(resultSet.getDate(SqlQueries.CUSTOMERS_PROFILE_CREATED_DATE_COLUMN));
-                customer.setProfileDeactivatedDate(resultSet.getDate(SqlQueries.CUSTOMERS_PROFILE_DEACTIVATED_DATE_COLUMN));
-                customer.setDeactivationReason(resultSet.getString(SqlQueries.CUSTOMERS_DEACTIVATION_REASON_COLUMN));
-                customer.setNotes(resultSet.getString(SqlQueries.CUSTOMERS_NOTES_COLUMN));
+                customer.setId(resultSet.getInt(CUSTOMERS_ID_COLUMN));
+                customer.setName(resultSet.getString(CUSTOMERS_NAME_COLUMN));
+                customer.setEmail(resultSet.getString(CUSTOMERS_EMAIL_COLUMN));
+                customer.setPhone(resultSet.getString(CUSTOMERS_PHONE_COLUMN));
+                customer.setAge(resultSet.getInt(CUSTOMERS_AGE_COLUMN));
+                customer.setGdprConsentStatus(resultSet.getBoolean(CUSTOMERS_GDPR_CONSENT_STATUS_COLUMN));
+                customer.setCustomerProfileStatus(resultSet.getBoolean(CUSTOMERS_CUSTOMER_PROFILE_STATUS_COLUMN));
+                customer.setProfileCreatedDate(resultSet.getDate(CUSTOMERS_PROFILE_CREATED_DATE_COLUMN));
+                customer.setProfileDeactivatedDate(resultSet.getDate(CUSTOMERS_PROFILE_DEACTIVATED_DATE_COLUMN));
+                customer.setDeactivationReason(resultSet.getString(CUSTOMERS_DEACTIVATION_REASON_COLUMN));
+                customer.setNotes(resultSet.getString(CUSTOMERS_NOTES_COLUMN));
             }
             if (customer != null) {
                 System.out.println(customer);
@@ -76,13 +76,13 @@ public class CustomerDaoResultSet extends CustomerDao {
 
         try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(String.format(SqlQueries.GET_CUSTOMERS_BY_IDS, ids
+             ResultSet resultSet = statement.executeQuery(String.format(GET_CUSTOMERS_BY_IDS, ids
                      .stream()
                      .map(Object::toString)
                      .collect(Collectors.joining(", "))))) {
 
             while (resultSet.next()) {
-                customers.add(getById(resultSet.getInt(SqlQueries.CUSTOMERS_ID_COLUMN)));
+                customers.add(getById(resultSet.getInt(CUSTOMERS_ID_COLUMN)));
             }
 
             if (customers != null) {

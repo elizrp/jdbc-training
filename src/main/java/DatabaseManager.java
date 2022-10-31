@@ -1,11 +1,10 @@
 import constants.SqlQueries;
-import dao.CustomerDao;
-import dao.CustomerDaoDBUtils;
-import dao.CustomerDaoResultSet;
-import dao.CustomerDaoResultSetMapper;
-import helpers.CustomerHelper;
+import dao.*;
+import helpers.objectBuilding.AddressHelper;
+import helpers.objectBuilding.CustomerHelper;
 import helpers.factoryConnection.FactoryConnectionHelper;
 import helpers.singletonConnection.SingletonConnectionHelper;
+import model.Address;
 import model.Customer;
 
 import java.sql.*;
@@ -17,9 +16,16 @@ public class DatabaseManager {
     private static FactoryConnectionHelper factoryHelper;
     private static SingletonConnectionHelper singletonHelper;
     private static CustomerDao customerDao;
+    private static AddressDao addressDao;
     private static Customer customer;
+    private static Address address;
 
     public static void main(String[] args) throws SQLException {
+
+        customerDao = new CustomerDaoDBUtils();
+        customerDao.getCustomerAddressOrderProduct(); // unrecognized
+        customerDao = new CustomerDaoDBUtils();
+        customerDao.getById(8);
 
 //        // CONNECTION
 //        // use Factory pattern to create db connection
@@ -50,7 +56,7 @@ public class DatabaseManager {
 //        customerDao.update(customer, 5);
 //
 //        // delete customer
-//        customerDao.delete(27);
+//        customerDao.delete(26);
 //        // truncate table
 //        customerDao.deleteAll();
 //        // get a random id of db record
@@ -77,19 +83,22 @@ public class DatabaseManager {
 //
 //        // extract a list of objects from the database by a List of IDs
 //        // create a list of customers first
-        List<Integer> customerIds = new ArrayList<>();
-        customerIds.add(2);
-        customerIds.add(7);
-        customerIds.add(9);
-        // 1. using ResultSet
-        customerDao = new CustomerDaoResultSet();
-        customerDao.getByIds(customerIds);
-//        // 2. using ResultSetMapper
+//        List<Integer> customerIds = new ArrayList<>();
+//        customerIds.add(2);
+//        customerIds.add(7);
+//        customerIds.add(9);
+//        1. using ResultSet
+//        customerDao = new CustomerDaoResultSet();
+//        customerDao.getByIds(customerIds);
+//        2. using ResultSetMapper
 //        customerDao = new CustomerDaoResultSetMapper();
 //        customerDao.getByIds(customerIds);
-//        // 3. using DBUtils
+//        3. using DBUtils
 //        customerDao = new CustomerDaoDBUtils();
 //        customerDao.getByIds(customerIds);
+
+//        address = AddressHelper.createAddress();
+//        System.out.println(address.toString());
     }
 
     // Test DB connection
