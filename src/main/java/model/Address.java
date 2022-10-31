@@ -25,7 +25,7 @@ public class Address implements Serializable {
     @Column(name = "state")
     private String state;
     @Column(name = "postal_code")
-    private @NonNull Integer postalCode;
+    private @NonNull int postalCode;
     @Column(name = "country")
     private @NonNull String country;
 }

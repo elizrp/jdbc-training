@@ -106,4 +106,7 @@ public abstract class CustomerDao implements DAO<Customer>, SqlQueries {
     public int getRecordsCount() {
         return daoHelper.getRecordsCount(CUSTOMERS_TABLE);
     }
+
+    public void getCustomerAddressOrderProduct() throws SQLException {
+    }
 }

@@ -2,6 +2,7 @@ package helpers;
 
 import constants.SqlQueries;
 import helpers.staticSingletonConnection.StaticSingletonConnectionHelper;
+import model.Address;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,6 +17,19 @@ public class DaoHelper {
 
     public static final Logger logger = Logger.getLogger(DaoHelper.class.getName());
     public static final String EMPTY_RESULT_MESSAGE = "Query did not return any data. Please check if database table is empty.";
+
+    public void save(String query) {
+        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
+             Statement statement = connection.createStatement()) {
+
+            statement.executeUpdate(query);
+
+            logger.log(Level.INFO, "Record is successfully saved in the database.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void delete(int id, String table) {
         try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();

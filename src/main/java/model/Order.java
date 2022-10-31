@@ -25,4 +25,6 @@ public class Order {
     private @NonNull Date dateOfOrder;
     @Column(name = "date_of_order_completed")
     private Date dateOfOrderCompleted;
+
+    private Product product;
 }

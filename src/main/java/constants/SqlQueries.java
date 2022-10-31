@@ -7,7 +7,7 @@ public interface SqlQueries {
     String INSERT_CUSTOMER = "insert into customers " +
             "values (default, '%s', '%s', '%s', %s, %s, %s, '%s', '%s', '%s', '%s');";
     String INSERT_ADDRESS = "insert into customers_addresses " +
-            "values (default, '%s', '%s', '%s', %s, %s, '%s');";
+            "values (default, %s, '%s', '%s', '%s', '%s', %s, '%s');";
 
 
     String UPDATE_CUSTOMER = "update customers SET name = '%s', email = '%s', phone = '%s', age = %s, gdpr_consent_status = %s, customer_profile_status = %s, profile_created_date = '%s', profile_deactivated_date = '%s', deactivation_reason = '%s', notes = '%s' where id = %s;";

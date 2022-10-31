@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public abstract class AddressDao implements DAO<Address> {
+public abstract class AddressDao implements DAO<Address>, SqlQueries {
 
     public static final Logger logger = Logger.getLogger(AddressDao.class.getName());
     private static DaoHelper daoHelper = new DaoHelper();
@@ -24,17 +24,8 @@ public abstract class AddressDao implements DAO<Address> {
      */
     @Override
     public void save(Address address) {
-        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
-             Statement statement = connection.createStatement()) {
-
-            statement.executeUpdate(String.format(SqlQueries.INSERT_ADDRESS, address.getAddress(), address.getCity(),
-                    address.getProvince(), address.getState(), address.getPostalCode(), address.getCountry()));
-
-            logger.log(Level.INFO, "Address is successfully saved in the database.");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        daoHelper.save(String.format(INSERT_ADDRESS, 8, address.getAddress(), address.getCity(),
+                address.getProvince(), address.getState(), address.getPostalCode(), address.getCountry()));
     }
 
     /**
@@ -48,7 +39,7 @@ public abstract class AddressDao implements DAO<Address> {
         try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
              Statement statement = connection.createStatement()) {
 
-            statement.executeUpdate(String.format(SqlQueries.UPDATE_ADDRESS, address.getAddress(), address.getCity(),
+            statement.executeUpdate(String.format(UPDATE_ADDRESS, address.getAddress(), address.getCity(),
                     address.getProvince(), address.getState(), address.getPostalCode(), address.getCountry(), addressId));
 
             logger.log(Level.INFO, String.format("Address with id = %d was successfully updated.", addressId));
@@ -64,7 +55,7 @@ public abstract class AddressDao implements DAO<Address> {
      */
     @Override
     public void delete(int addressId) {
-        daoHelper.delete(addressId, SqlQueries.CUSTOMERS_ADDRESSES_TABLE);
+        daoHelper.delete(addressId, CUSTOMERS_ADDRESSES_TABLE);
     }
 
     /**
@@ -72,7 +63,7 @@ public abstract class AddressDao implements DAO<Address> {
      */
     @Override
     public void deleteAll() {
-        daoHelper.deleteAll(SqlQueries.CUSTOMERS_ADDRESSES_TABLE);
+        daoHelper.deleteAll(CUSTOMERS_ADDRESSES_TABLE);
     }
 
     /**
@@ -82,7 +73,7 @@ public abstract class AddressDao implements DAO<Address> {
      */
     @Override
     public int getRandomId() {
-        return daoHelper.getRandomId(SqlQueries.CUSTOMERS_ADDRESSES_TABLE);
+        return daoHelper.getRandomId(CUSTOMERS_ADDRESSES_TABLE);
     }
 
     /**
@@ -93,7 +84,7 @@ public abstract class AddressDao implements DAO<Address> {
      */
     @Override
     public List<Integer> getRandomIds(int numberOfIds) {
-        return daoHelper.getRandomIds(numberOfIds, SqlQueries.CUSTOMERS_ADDRESSES_TABLE);
+        return daoHelper.getRandomIds(numberOfIds, CUSTOMERS_ADDRESSES_TABLE);
     }
 
     /**
@@ -103,6 +94,6 @@ public abstract class AddressDao implements DAO<Address> {
      */
     @Override
     public int getRecordsCount() {
-        return daoHelper.getRecordsCount(SqlQueries.CUSTOMERS_ADDRESSES_TABLE);
+        return daoHelper.getRecordsCount(CUSTOMERS_ADDRESSES_TABLE);
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AddressDaoDBUtils extends AddressDao implements SqlQueries {
 
-    private static DBUtilsMapperHelper<Address> dbUtilsHelper = new DBUtilsMapperHelper<>();
+    private static DBUtilsMapperHelper<Address> dbUtilsHelper = new DBUtilsMapperHelper<>(Address.class);
 
     /**
      * Extracts a single customer from the database by ID.
@@ -19,7 +19,7 @@ public class AddressDaoDBUtils extends AddressDao implements SqlQueries {
      */
     @Override
     public Address getById(int id) {
-        return dbUtilsHelper.getById(id, CUSTOMERS_ADDRESSES_TABLE, Address.class);
+        return dbUtilsHelper.getById(id, CUSTOMERS_ADDRESSES_TABLE);
     }
 
     /**
@@ -31,6 +31,6 @@ public class AddressDaoDBUtils extends AddressDao implements SqlQueries {
      */
     @Override
     public List<Address> getByIds(List<Integer> ids) {
-        return dbUtilsHelper.getByIds(ids, CUSTOMERS_ADDRESSES_TABLE, Address.class);
+        return dbUtilsHelper.getByIds(ids, CUSTOMERS_ADDRESSES_TABLE);
     }
 }

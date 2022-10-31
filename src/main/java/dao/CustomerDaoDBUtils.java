@@ -17,7 +17,7 @@ import java.util.logging.Level;
  */
 public class CustomerDaoDBUtils extends CustomerDao {
 
-    private static DBUtilsMapperHelper<Customer> dbUtilsHelper = new DBUtilsMapperHelper<>();
+    private static DBUtilsMapperHelper<Customer> dbUtilsHelper = new DBUtilsMapperHelper<>(Customer.class);
 
     /**
      * Extracts a single customer from the database by ID.
@@ -28,7 +28,7 @@ public class CustomerDaoDBUtils extends CustomerDao {
      */
     @Override
     public Customer getById(int id) {
-        return dbUtilsHelper.getById(id, SqlQueries.CUSTOMERS_TABLE, Customer.class);
+        return dbUtilsHelper.getById(id, CUSTOMERS_TABLE);
     }
 
     /**
@@ -40,9 +40,10 @@ public class CustomerDaoDBUtils extends CustomerDao {
      */
     @Override
     public List<Customer> getByIds(List<Integer> ids) {
-        return dbUtilsHelper.getByIds(ids, SqlQueries.CUSTOMERS_TABLE, Customer.class);
+        return dbUtilsHelper.getByIds(ids, CUSTOMERS_TABLE);
     }
 
+    @Override
     public void getCustomerAddressOrderProduct() throws SQLException {
         dbUtilsHelper.getCustomerAddressOrderProduct();
     }

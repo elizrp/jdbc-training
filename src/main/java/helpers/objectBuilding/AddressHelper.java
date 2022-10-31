@@ -20,7 +20,7 @@ public class AddressHelper {
                 .city(faker.address().cityName())
                 .province(faker.address().cityName())
                 .state(faker.address().state())
-                .postalCode(Integer.parseInt(faker.address().countryCode()))
+                .postalCode(Integer.parseInt(faker.address().buildingNumber()))
                 .country(faker.address().country())
                 .build();
     }

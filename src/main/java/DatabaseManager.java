@@ -16,16 +16,27 @@ public class DatabaseManager {
     private static FactoryConnectionHelper factoryHelper;
     private static SingletonConnectionHelper singletonHelper;
     private static CustomerDao customerDao;
+    private static CustomerDaoDBUtils customerDaoDBUtils;
     private static AddressDao addressDao;
     private static Customer customer;
     private static Address address;
 
     public static void main(String[] args) throws SQLException {
 
-        customerDao = new CustomerDaoDBUtils();
-        customerDao.getCustomerAddressOrderProduct(); // unrecognized
-        customerDao = new CustomerDaoDBUtils();
-        customerDao.getById(8);
+//        customerDao = new CustomerDaoDBUtils();
+//        customerDao.getCustomerAddressOrderProduct(); // unrecognized
+//        customerDao = new CustomerDaoDBUtils();
+//        customerDao.getById(8);
+        addressDao = new AddressDaoDBUtils();
+//        addressDao.getById(4);
+//        List<Integer> addressIds = new ArrayList<>();
+//        addressIds.add(2);
+//        addressIds.add(7);
+//        addressIds.add(9);
+//        addressDao.getByIds(addressIds);
+
+//        addressDao.update(AddressHelper.createAddress(), 1);
+        addressDao.save(AddressHelper.createAddress());
 
 //        // CONNECTION
 //        // use Factory pattern to create db connection

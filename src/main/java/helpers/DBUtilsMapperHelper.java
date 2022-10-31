@@ -27,7 +27,7 @@ public class DBUtilsMapperHelper<T> extends DaoHelper implements SqlQueries {
 
     final Class<T> typeParameterClass;
 
-    public DBUtilsMapperHelper(Class<T> typeParameterClass){
+    public DBUtilsMapperHelper(Class<T> typeParameterClass) {
         this.typeParameterClass = typeParameterClass;
     }
 
@@ -37,10 +37,9 @@ public class DBUtilsMapperHelper<T> extends DaoHelper implements SqlQueries {
      *
      * @param id          the id of the object
      * @param table       the name of the table in the database
-     * @param outputClass the class to which the data should be mapped
      * @return Customer object
      */
-    public T getById(int id, String table, Class outputClass) {
+    public T getById(int id, String table) {
 
         T object = null;
         QueryRunner runner = new QueryRunner();
@@ -48,7 +47,7 @@ public class DBUtilsMapperHelper<T> extends DaoHelper implements SqlQueries {
         // use the BeanHandler implementation to convert the first ResultSet row into a <T> JavaBean
         // use GenerousBeanProcessor which ignores underscore and case sensitivity from column name
         ResultSetHandler<T> handler =
-                new BeanHandler<T>(outputClass, new BasicRowProcessor(new GenerousBeanProcessor()));
+                new BeanHandler<T>(typeParameterClass, new BasicRowProcessor(new GenerousBeanProcessor()));
 
 
         try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection()) {
@@ -75,10 +74,9 @@ public class DBUtilsMapperHelper<T> extends DaoHelper implements SqlQueries {
      *
      * @param ids         a list of ids of objects
      * @param table       the name of the table in the database
-     * @param outputClass the class to which the data should be mapped
      * @return a list of objects
      */
-    public List<T> getByIds(List<Integer> ids, String table, Class outputClass) {
+    public List<T> getByIds(List<Integer> ids, String table) {
 
         List<T> objects = new ArrayList<>();
         QueryRunner runner = new QueryRunner();
@@ -86,7 +84,7 @@ public class DBUtilsMapperHelper<T> extends DaoHelper implements SqlQueries {
         // use the BeanListHandler implementation to convert all ResultSet rows into a List of Person JavaBeans
         // use GenerousBeanProcessor which ignores underscore and case sensitivity from column name
         ResultSetHandler<List<T>> handler =
-                new BeanListHandler<>(outputClass, new BasicRowProcessor(new GenerousBeanProcessor()));
+                new BeanListHandler<>(typeParameterClass, new BasicRowProcessor(new GenerousBeanProcessor()));
 
 
         try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection()) {
