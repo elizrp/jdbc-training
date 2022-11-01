@@ -2,7 +2,6 @@ package helpers;
 
 import constants.SqlQueries;
 import helpers.staticSingletonConnection.StaticSingletonConnectionHelper;
-import model.Address;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,6 +17,11 @@ public class DaoHelper {
     public static final Logger logger = Logger.getLogger(DaoHelper.class.getName());
     public static final String EMPTY_RESULT_MESSAGE = "Query did not return any data. Please check if database table is empty.";
 
+    /**
+     * Inserts a new object in the database by a given SQL query
+     *
+     * @param query
+     */
     public void save(String query) {
         try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
              Statement statement = connection.createStatement()) {
@@ -31,6 +35,30 @@ public class DaoHelper {
         }
     }
 
+    /**
+     * Updates an object in the database by a given SQL query
+     *
+     * @param query
+     */
+    public void update(String query) {
+        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
+             Statement statement = connection.createStatement()) {
+
+            statement.executeUpdate(query);
+
+            logger.log(Level.INFO, "Record is successfully updated.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Deletes an object by a given id
+     *
+     * @param id id of the object to be deleted
+     * @param table the table in which the operation is being performed
+     */
     public void delete(int id, String table) {
         try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
              Statement statement = connection.createStatement()) {
@@ -43,6 +71,11 @@ public class DaoHelper {
         }
     }
 
+    /**
+     * Deletes all records from table
+     *
+     * @param table
+     */
     public void deleteAll(String table) {
         try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
              Statement statement = connection.createStatement()) {
@@ -55,6 +88,12 @@ public class DaoHelper {
         }
     }
 
+    /**
+     * Retrieves a random id from the table
+     *
+     * @param table
+     * @return a random id
+     */
     public int getRandomId(String table) {
 
         int randomId = 0;
@@ -76,6 +115,13 @@ public class DaoHelper {
         return randomId;
     }
 
+    /**
+     * Retrieves a list of random ids from the table
+     *
+     * @param numberOfIds
+     * @param table
+     * @return a list of ids
+     */
     public List<Integer> getRandomIds(int numberOfIds, String table) {
 
         List<Integer> ids = new ArrayList<>();
@@ -87,6 +133,12 @@ public class DaoHelper {
         return ids;
     }
 
+    /**
+     * Finds the total count of records in the table
+     *
+     * @param table
+     * @return total count of records
+     */
     public int getRecordsCount(String table) {
 
         int count = 0;

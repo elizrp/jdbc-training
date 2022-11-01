@@ -2,14 +2,9 @@ package dao;
 
 import constants.SqlQueries;
 import helpers.DaoHelper;
-import helpers.staticSingletonConnection.StaticSingletonConnectionHelper;
 import model.Address;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public abstract class AddressDao implements DAO<Address>, SqlQueries {
@@ -36,16 +31,8 @@ public abstract class AddressDao implements DAO<Address>, SqlQueries {
      */
     @Override
     public void update(Address address, int addressId) {
-        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
-             Statement statement = connection.createStatement()) {
-
-            statement.executeUpdate(String.format(UPDATE_ADDRESS, address.getAddress(), address.getCity(),
-                    address.getProvince(), address.getState(), address.getPostalCode(), address.getCountry(), addressId));
-
-            logger.log(Level.INFO, String.format("Address with id = %d was successfully updated.", addressId));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        daoHelper.update(String.format(UPDATE_ADDRESS, address.getAddress(), address.getCity(),
+                address.getProvince(), address.getState(), address.getPostalCode(), address.getCountry(), addressId));
     }
 
     /**
@@ -96,4 +83,12 @@ public abstract class AddressDao implements DAO<Address>, SqlQueries {
     public int getRecordsCount() {
         return daoHelper.getRecordsCount(CUSTOMERS_ADDRESSES_TABLE);
     }
+
+    /**
+     * Retrieves an Address object by given customerId
+     *
+     * @param customerId the id of the customer which corresponds to this address
+     * @return Address object
+     */
+    public abstract Address getByCustomerId(int customerId);
 }

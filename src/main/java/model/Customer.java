@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Class Customer constructed as JavaBean,
@@ -42,5 +43,23 @@ public class Customer implements Serializable {
     private String notes;
 
     private Address address;
-    private Order order;
+    private List<Order> orders;
+
+    @Override
+    public String toString() {
+        return "Customer info: {" +
+                "id = \'" + id + "\',\n" +
+                "name = \'" + name + "\',\n" +
+                "email = \'" + email + "\',\n" +
+                "phone = \'" + phone + "\',\n" +
+                "age = \'" + age + "\',\n" +
+                "gdprConsentStatus = \'" + gdprConsentStatus + "\',\n" +
+                "customerProfileStatus = \'" + customerProfileStatus + "\',\n" +
+                "profileCreatedDate = \'" + profileCreatedDate + "\',\n" +
+                "profileDeactivatedDate = \'" + profileDeactivatedDate + "\',\n" +
+                "deactivationReason = \'" + deactivationReason + "\',\n" +
+                "notes = \'" + notes + "\'\n" +
+                "address = \'" + address + "\',\n" +
+                "orders = \'" + orders + "\'\n}";
+    }
 }

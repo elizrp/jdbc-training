@@ -2,16 +2,9 @@ package dao;
 
 import constants.SqlQueries;
 import helpers.DaoHelper;
-import helpers.staticSingletonConnection.StaticSingletonConnectionHelper;
 import model.Customer;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public abstract class CustomerDao implements DAO<Customer>, SqlQueries {
@@ -27,16 +20,7 @@ public abstract class CustomerDao implements DAO<Customer>, SqlQueries {
      */
     @Override
     public void save(Customer customer) {
-        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
-             Statement statement = connection.createStatement()) {
-
-            statement.executeUpdate(String.format(INSERT_CUSTOMER, customer.getName(), customer.getEmail(), customer.getPhone(), customer.getAge(), customer.isGdprConsentStatus(), customer.isCustomerProfileStatus(), customer.getProfileCreatedDate(), customer.getProfileDeactivatedDate(), customer.getDeactivationReason(), customer.getNotes()));
-
-            logger.log(Level.INFO, "Customer is successfully saved in the database.");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        daoHelper.save(String.format(INSERT_CUSTOMER, customer.getName(), customer.getEmail(), customer.getPhone(), customer.getAge(), customer.isGdprConsentStatus(), customer.isCustomerProfileStatus(), customer.getProfileCreatedDate(), customer.getProfileDeactivatedDate(), customer.getDeactivationReason(), customer.getNotes()));
     }
 
     /**
@@ -47,15 +31,7 @@ public abstract class CustomerDao implements DAO<Customer>, SqlQueries {
      */
     @Override
     public void update(Customer customer, int customerId) {
-        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
-             Statement statement = connection.createStatement()) {
-
-            statement.executeUpdate(String.format(UPDATE_CUSTOMER, customer.getName(), customer.getEmail(), customer.getPhone(), customer.getAge(), customer.isGdprConsentStatus(), customer.isCustomerProfileStatus(), customer.getProfileCreatedDate(), customer.getProfileDeactivatedDate(), customer.getDeactivationReason(), customer.getNotes(), customerId));
-
-            logger.log(Level.INFO, String.format("Customer with id = %d was successfully updated.", customerId));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        daoHelper.update(String.format(UPDATE_CUSTOMER, customer.getName(), customer.getEmail(), customer.getPhone(), customer.getAge(), customer.isGdprConsentStatus(), customer.isCustomerProfileStatus(), customer.getProfileCreatedDate(), customer.getProfileDeactivatedDate(), customer.getDeactivationReason(), customer.getNotes(), customerId));
     }
 
     /**
@@ -105,8 +81,5 @@ public abstract class CustomerDao implements DAO<Customer>, SqlQueries {
     @Override
     public int getRecordsCount() {
         return daoHelper.getRecordsCount(CUSTOMERS_TABLE);
-    }
-
-    public void getCustomerAddressOrderProduct() throws SQLException {
     }
 }

@@ -3,7 +3,6 @@ package model;
 import lombok.*;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import java.io.Serializable;
 
 @Data
@@ -28,4 +27,17 @@ public class Address implements Serializable {
     private @NonNull int postalCode;
     @Column(name = "country")
     private @NonNull String country;
+
+    @Override
+    public String toString() {
+        return "Address info: {" +
+                "id = \'" + id + "\',\n" +
+                "customer_id = \'" + customerId + "\',\n" +
+                "address = \'" + address + "\',\n" +
+                "city = \'" + city + "\',\n" +
+                "province = \'" + province + "\',\n" +
+                "state = \'" + state + "\',\n" +
+                "postal_code = \'" + postalCode + "\',\n" +
+                "country = \'" + country + "\'\n}";
+    }
 }

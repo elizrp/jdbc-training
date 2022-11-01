@@ -28,4 +28,18 @@ public class Product {
     private @NonNull boolean isProductInStock;
     @Column(name = "warehouse")
     private @NonNull String warehouse;
+
+    @Override
+    public String toString() {
+        return "Product info: {" +
+                "id = \'" + id + "\',\n" +
+                "supplier_id = \'" + supplierId + "\',\n" +
+                "product_name = \'" + name + "\',\n" +
+                "available_quantity = \'" + availableQuantity + "\',\n" +
+                "product_type = \'" + type + "\',\n" +
+                "price_without_VAT = \'" + priceWithoutVat + "\',\n" +
+                "price_with_VAT = \'" + priceWithVat + "\',\n" +
+                "is_product_in_stock = \'" + isProductInStock + "\'\n" +
+                "warehouse = \'" + warehouse + "\'\n}";
+    }
 }

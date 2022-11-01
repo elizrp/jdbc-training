@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.Column;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -26,5 +27,18 @@ public class Order {
     @Column(name = "date_of_order_completed")
     private Date dateOfOrderCompleted;
 
-    private Product product;
+    private List<Product> products;
+
+    @Override
+    public String toString() {
+        return "Order info: {" +
+                "id = \'" + id + "\',\n" +
+                "customer_id = \'" + customerId + "\',\n" +
+                "customer = \'" + customer + "\',\n" +
+                "is_order_completed = \'" + isOrderCompleted + "\',\n" +
+                "is_order_paid = \'" + isOrderPaid + "\',\n" +
+                "date_of_order = \'" + dateOfOrder + "\',\n" +
+                "date_of_order_completed = \'" + dateOfOrderCompleted + "\',\n" +
+                "products = \'" + products + "\'\n}";
+    }
 }

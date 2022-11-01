@@ -1,21 +1,20 @@
 package dao;
 
-import constants.SqlQueries;
 import helpers.DBUtilsMapperHelper;
-import helpers.staticSingletonConnection.StaticSingletonConnectionHelper;
 import model.Customer;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
-import java.util.logging.Level;
+
 
 /**
  * Class CustomerDaoDBUtils extends functionality of CustomerDao.
  * Provides database methods that use Apache DBUtils.
  */
 public class CustomerDaoDBUtils extends CustomerDao {
+
+    private static AddressDao addressDao = new AddressDaoDBUtils();
+    private static OrderDao orderDao = new OrderDaoDBUtils();
+    private static ProductDao productDao = new ProductDaoDBUtils();
 
     private static DBUtilsMapperHelper<Customer> dbUtilsHelper = new DBUtilsMapperHelper<>(Customer.class);
 
@@ -28,7 +27,11 @@ public class CustomerDaoDBUtils extends CustomerDao {
      */
     @Override
     public Customer getById(int id) {
-        return dbUtilsHelper.getById(id, CUSTOMERS_TABLE);
+
+        Customer customer = dbUtilsHelper.getById(id, GET_CUSTOMER_BY_ID);
+        customer.setAddress(addressDao.getByCustomerId(customer.getId()));
+        customer.setOrders(orderDao.getByCustomerId(customer.getId()));
+        return customer;
     }
 
     /**
@@ -41,10 +44,5 @@ public class CustomerDaoDBUtils extends CustomerDao {
     @Override
     public List<Customer> getByIds(List<Integer> ids) {
         return dbUtilsHelper.getByIds(ids, CUSTOMERS_TABLE);
-    }
-
-    @Override
-    public void getCustomerAddressOrderProduct() throws SQLException {
-        dbUtilsHelper.getCustomerAddressOrderProduct();
     }
 }
