@@ -3,9 +3,9 @@ package model;
 import lombok.*;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Class Customer constructed as JavaBean,
@@ -34,11 +34,32 @@ public class Customer implements Serializable {
     @Column(name = "customer_profile_status")
     private @NonNull boolean customerProfileStatus;
     @Column(name = "profile_created_date")
-    private @NonNull java.util.Date profileCreatedDate;
+    private @NonNull Date profileCreatedDate;
     @Column(name = "profile_deactivated_date")
     private Date profileDeactivatedDate;
     @Column(name = "deactivation_reason")
     private String deactivationReason;
     @Column(name = "notes")
     private String notes;
+
+    private Address address;
+    private List<Order> orders;
+
+    @Override
+    public String toString() {
+        return "Customer info: {" +
+                "id = \'" + id + "\',\n" +
+                "name = \'" + name + "\',\n" +
+                "email = \'" + email + "\',\n" +
+                "phone = \'" + phone + "\',\n" +
+                "age = \'" + age + "\',\n" +
+                "gdprConsentStatus = \'" + gdprConsentStatus + "\',\n" +
+                "customerProfileStatus = \'" + customerProfileStatus + "\',\n" +
+                "profileCreatedDate = \'" + profileCreatedDate + "\',\n" +
+                "profileDeactivatedDate = \'" + profileDeactivatedDate + "\',\n" +
+                "deactivationReason = \'" + deactivationReason + "\',\n" +
+                "notes = \'" + notes + "\'\n" +
+                "address = \'" + address + "\',\n" +
+                "orders = \'" + orders + "\'\n}";
+    }
 }

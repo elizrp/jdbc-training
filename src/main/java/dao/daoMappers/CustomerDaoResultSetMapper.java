@@ -1,15 +1,17 @@
-package dao;
+package dao.daoMappers;
 
 import constants.SqlQueries;
-import helpers.ResultSetMapperHelper;
+import dao.baseDaos.CustomerDao;
+import helpers.daoHelpers.ResultSetMapperHelper;
+import helpers.staticSingletonConnection.StaticSingletonConnectionHelper;
 import model.Customer;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -30,14 +32,15 @@ public class CustomerDaoResultSetMapper extends CustomerDao {
 
         Customer customer = null;
 
-        try (Statement statement = connection.createStatement();
+        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
+             Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(
                      String.format(SqlQueries.GET_CUSTOMER_BY_ID, id))) {
 
             ResultSetMapperHelper<Customer> resultSetMapper = new ResultSetMapperHelper<>();
 
-            // simple JDBC code to run SQL query and populate resultSet - END
-            customer = resultSetMapper.mapResultSetToSingleObject(resultSet, Customer.class);
+            // simple JDBC code to run SQL query and populate resultSet
+            customer = resultSetMapper.mapResultSetToObject(resultSet, Customer.class);
             // print out the list retrieved from database
             if (customer != null) {
                 System.out.println(customer);
@@ -63,7 +66,8 @@ public class CustomerDaoResultSetMapper extends CustomerDao {
 
         List<Customer> customers = null;
 
-        try (Statement statement = connection.createStatement();
+        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
+             Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(String.format(SqlQueries.GET_CUSTOMERS_BY_IDS, ids
                      .stream()
                      .map(Object::toString)
@@ -72,7 +76,7 @@ public class CustomerDaoResultSetMapper extends CustomerDao {
             ResultSetMapperHelper<Customer> resultSetMapper = new ResultSetMapperHelper<>();
 
             // simple JDBC code to run SQL query and populate resultSet
-            customers = resultSetMapper.mapResultSetToMultipleObjects(resultSet, Customer.class);
+            customers = resultSetMapper.mapResultSetToObjects(resultSet, Customer.class);
             // print out the list retrieved from database
             if (customers != null) {
                 for (Customer customer : customers) {

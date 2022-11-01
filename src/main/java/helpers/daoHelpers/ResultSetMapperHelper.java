@@ -1,6 +1,6 @@
-package helpers;
+package helpers.daoHelpers;
 
-import dao.CustomerDao;
+import dao.baseDaos.CustomerDao;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.persistence.Column;
@@ -24,7 +24,7 @@ public class ResultSetMapperHelper<T> {
      * @param outputClass the class to be mapped to
      * @return a list of T objects
      */
-    public List<T> mapResultSetToMultipleObjects(ResultSet resultSet, Class outputClass) {
+    public List<T> mapResultSetToObjects(ResultSet resultSet, Class outputClass) {
 
         List<T> outputList = null;
 
@@ -83,7 +83,7 @@ public class ResultSetMapperHelper<T> {
      * @param outputClass the class to be mapped to
      * @return a T object
      */
-    public T mapResultSetToSingleObject(ResultSet resultSet, Class outputClass) {
+    public T mapResultSetToObject(ResultSet resultSet, Class outputClass) {
 
         T outputObject = null;
 
