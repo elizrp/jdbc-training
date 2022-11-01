@@ -4,7 +4,7 @@ This is a project which uses JDBC for database management and testing.
 
 ### Prerequisites
 - Local Postgres database setup
-- 'customers' table with example data
+- 'customers', 'customers_addresses', 'orders', 'products_inventory' tables with example data
 
 ### Setup
 - Java 11
@@ -15,6 +15,6 @@ This is a project which uses JDBC for database management and testing.
 
 - Two helper classes that create db connection via different design patterns
 - Sample data is generated with the help of JavaFaker -> implemented in CustomerHelper class.
-- CustomerDao class which implements CRUD operations
-- Different implementations of mapping result data can be found in CustomerDaoResultSet, CustomerDaoResultSetMapper and CustomerDaoDBUtils
+- DAO classes in /dao/baseDaos which implement CRUD operations
+- Extended functionalities and different implementations of mapping result data can be found in /dao/daoMappers
 - All operations can be tested through the main() method in DatabaseManager class
