@@ -1,6 +1,7 @@
-package dao;
+package dao.daoMappers;
 
 import constants.SqlQueries;
+import dao.baseDaos.CustomerDao;
 import helpers.staticSingletonConnection.StaticSingletonConnectionHelper;
 import model.Customer;
 

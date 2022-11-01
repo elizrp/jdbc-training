@@ -1,7 +1,8 @@
-package dao;
+package dao.daoMappers;
 
 import constants.SqlQueries;
-import helpers.DBUtilsMapperHelper;
+import dao.baseDaos.AddressDao;
+import helpers.daoHelpers.DBUtilsMapperHelper;
 import model.Address;
 
 import java.util.List;

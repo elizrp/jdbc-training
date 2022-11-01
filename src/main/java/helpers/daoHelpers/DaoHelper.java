@@ -1,4 +1,4 @@
-package helpers;
+package helpers.daoHelpers;
 
 import constants.SqlQueries;
 import helpers.staticSingletonConnection.StaticSingletonConnectionHelper;

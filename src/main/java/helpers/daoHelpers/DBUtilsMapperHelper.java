@@ -1,6 +1,7 @@
-package helpers;
+package helpers.daoHelpers;
 
 import constants.SqlQueries;
+import helpers.daoHelpers.DaoHelper;
 import helpers.staticSingletonConnection.StaticSingletonConnectionHelper;
 import org.apache.commons.dbutils.BasicRowProcessor;
 import org.apache.commons.dbutils.GenerousBeanProcessor;

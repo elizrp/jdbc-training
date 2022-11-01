@@ -1,5 +1,5 @@
-import dao.CustomerDao;
-import dao.CustomerDaoDBUtils;
+import dao.baseDaos.CustomerDao;
+import dao.daoMappers.CustomerDaoDBUtils;
 import model.Customer;
 
 public class DatabaseManager {

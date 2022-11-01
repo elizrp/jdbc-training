@@ -1,7 +1,9 @@
-package dao;
+package dao.daoMappers;
 
 import constants.SqlQueries;
-import helpers.DBUtilsMapperHelper;
+import dao.baseDaos.OrderDao;
+import dao.baseDaos.ProductDao;
+import helpers.daoHelpers.DBUtilsMapperHelper;
 import model.Order;
 
 import java.util.List;

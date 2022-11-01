@@ -1,6 +1,10 @@
-package dao;
+package dao.daoMappers;
 
-import helpers.DBUtilsMapperHelper;
+import dao.baseDaos.AddressDao;
+import dao.baseDaos.CustomerDao;
+import dao.baseDaos.OrderDao;
+import dao.baseDaos.ProductDao;
+import helpers.daoHelpers.DBUtilsMapperHelper;
 import model.Customer;
 
 import java.util.List;

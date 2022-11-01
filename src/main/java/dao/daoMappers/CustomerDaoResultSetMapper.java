@@ -1,7 +1,8 @@
-package dao;
+package dao.daoMappers;
 
 import constants.SqlQueries;
-import helpers.ResultSetMapperHelper;
+import dao.baseDaos.CustomerDao;
+import helpers.daoHelpers.ResultSetMapperHelper;
 import helpers.staticSingletonConnection.StaticSingletonConnectionHelper;
 import model.Customer;
 
@@ -11,7 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**

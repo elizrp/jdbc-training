@@ -1,6 +1,6 @@
-package helpers;
+package helpers.daoHelpers;
 
-import dao.CustomerDao;
+import dao.baseDaos.CustomerDao;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.persistence.Column;
@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
