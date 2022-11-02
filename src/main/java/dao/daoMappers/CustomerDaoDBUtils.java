@@ -3,7 +3,6 @@ package dao.daoMappers;
 import dao.baseDaos.AddressDao;
 import dao.baseDaos.CustomerDao;
 import dao.baseDaos.OrderDao;
-import dao.baseDaos.ProductDao;
 import helpers.daoHelpers.DBUtilsMapperHelper;
 import model.Customer;
 
@@ -18,7 +17,6 @@ public class CustomerDaoDBUtils extends CustomerDao {
 
     private static AddressDao addressDao = new AddressDaoDBUtils();
     private static OrderDao orderDao = new OrderDaoDBUtils();
-    private static ProductDao productDao = new ProductDaoDBUtils();
 
     private static DBUtilsMapperHelper<Customer> dbUtilsHelper = new DBUtilsMapperHelper<>(Customer.class);
 
@@ -47,6 +45,18 @@ public class CustomerDaoDBUtils extends CustomerDao {
      */
     @Override
     public List<Customer> getByIds(List<Integer> ids) {
-        return dbUtilsHelper.getByIds(ids, CUSTOMERS_TABLE);
+        return dbUtilsHelper.getByIds(ids, GET_CUSTOMERS_BY_IDS);
+    }
+
+    /**
+     * TODO:
+     * Retrieves the ids of all customers in the table.
+     * Uses Apache DBUtils ResultSetHandler for mapping db data to pojo.
+     *
+     * @return a list of ids
+     */
+    @Override
+    public List<Integer> getCustomerIds() {
+        return null;
     }
 }

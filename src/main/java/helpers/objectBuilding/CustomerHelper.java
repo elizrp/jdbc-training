@@ -18,7 +18,7 @@ public class CustomerHelper {
 
     public static Customer createCustomer() {
         return Customer.builder()
-                .name(faker.name().fullName())
+                .name(faker.name().fullName().replaceAll("\'", ""))
                 .email(faker.internet().emailAddress())
                 .phone(faker.phoneNumber().cellPhone())
                 .age(faker.number().numberBetween(18, 100))

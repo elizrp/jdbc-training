@@ -32,7 +32,7 @@ public class AddressDaoDBUtils extends AddressDao implements SqlQueries {
      */
     @Override
     public List<Address> getByIds(List<Integer> ids) {
-        return dbUtilsHelper.getByIds(ids, CUSTOMERS_ADDRESSES_TABLE);
+        return dbUtilsHelper.getByIds(ids, GET_ADDRESSES_BY_IDS);
     }
 
     /**

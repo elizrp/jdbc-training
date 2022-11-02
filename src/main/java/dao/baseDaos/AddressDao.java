@@ -2,6 +2,7 @@ package dao.baseDaos;
 
 import constants.SqlQueries;
 import dao.DAO;
+import dao.daoMappers.CustomerDaoDBUtils;
 import helpers.daoHelpers.DaoHelper;
 import model.Address;
 
@@ -20,7 +21,7 @@ public abstract class AddressDao implements DAO<Address>, SqlQueries {
      */
     @Override
     public void save(Address address) {
-        daoHelper.save(String.format(INSERT_ADDRESS, 8, address.getAddress(), address.getCity(),
+        daoHelper.save(String.format(INSERT_ADDRESS, address.getCustomerId(), address.getAddress(), address.getCity(),
                 address.getProvince(), address.getState(), address.getPostalCode(), address.getCountry()));
     }
 
