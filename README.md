@@ -10,6 +10,7 @@ This is a project which uses JDBC for database management and testing.
 - Java 11
 - Maven
 - JDBC driver for Postgres database
+- Cucumber
 
 ### Structure
 
@@ -18,3 +19,4 @@ This is a project which uses JDBC for database management and testing.
 - DAO classes in /dao/baseDaos which implement CRUD operations
 - Extended functionalities and different implementations of mapping result data can be found in /dao/daoMappers
 - All operations can be tested through the main() method in DatabaseManager class
+- Cucumber tests under src/test - tests can be run from TestRunner class using the tags cucumber option
