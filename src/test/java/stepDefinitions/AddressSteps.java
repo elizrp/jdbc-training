@@ -43,6 +43,7 @@ public class AddressSteps {
         }
     }
 
+    // Get X random addresses by getting X random IDs and verify that they have all mandatory fields with data
     @When("user retrieves {int} random addresses")
     public void getAddressesByRandomId(int numberOfAddresses) {
         randomAddresses = addressDao.getByIds(addressDao.getRandomIds(numberOfAddresses));
