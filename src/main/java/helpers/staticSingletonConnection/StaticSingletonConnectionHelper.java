@@ -6,7 +6,6 @@ import helpers.PropertiesHelper;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 // Singleton Pattern
@@ -32,10 +31,6 @@ public class StaticSingletonConnectionHelper implements DatabaseFactoryHelper {
                         propertiesHelper.getUrl(),
                         propertiesHelper.getUsername(),
                         propertiesHelper.getPassword());
-
-                if (connection != null) {
-                    logger.log(Level.INFO, "Successfully connected to database using Singleton pattern.");
-                }
             } else {
                 System.out.println("Connection already exists.");
             }

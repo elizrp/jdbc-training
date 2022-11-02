@@ -91,4 +91,16 @@ public class CustomerDaoResultSetMapper extends CustomerDao {
 
         return customers;
     }
+
+    /**
+     * TODO:
+     * Retrieves the ids of all customers in the table.
+     * Uses ResultSetMapper for mapping db data to pojo.
+     *
+     * @return a list of ids
+     */
+    @Override
+    public List<Integer> getCustomerIds() {
+        return null;
+    }
 }

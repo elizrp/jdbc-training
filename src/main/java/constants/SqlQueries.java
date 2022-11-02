@@ -23,18 +23,20 @@ public interface SqlQueries {
 
     // CRUD queries
     String DELETE_BY_ID = "delete from %s where id = %s;";
-    String DELETE_ALL = "truncate table %s;";
+    String DELETE_ALL = "truncate table %s cascade;";
+    String GET_CUSTOMER_IDS = "select id from customers;";
     String COUNT_RECORDS = "select count(*) from %s;";
     String GET_RANDOM_ID = "select id from %s order by random() limit 1;";
     String GET_CUSTOMER_BY_ID = "select * from customers where id = %s";
-    String GET_ADDRESS_BY_ID = "select * from customers_addresses where id = %s";
-    String GET_PRODUCT_BY_ID = "select * from products_inventory where id = %s";
-    String GET_PRODUCTS_BY_IDS = "select * from products_inventory where id in (%s)";
-    String GET_ORDER_BY_ID = "select * from orders where id = %s";
-    String GET_ORDERS_BY_IDS = "select * from orders where id in (%s)";
-    String GET_ADDRESS_BY_CUSTOMER_ID = "select * from customers_addresses where customer_id = %s";
-    String GET_ORDER_BY_CUSTOMER_ID = "select * from orders where customer_id = %s";
-    String GET_CUSTOMERS_BY_IDS = "select * from customers where id in (%s)";
+    String GET_ADDRESS_BY_ID = "select * from customers_addresses where id = %s;";
+    String GET_PRODUCT_BY_ID = "select * from products_inventory where id = %s;";
+    String GET_PRODUCTS_BY_IDS = "select * from products_inventory where id in (%s);";
+    String GET_ORDER_BY_ID = "select * from orders where id = %s;";
+    String GET_ORDERS_BY_IDS = "select * from orders where id in (%s);";
+    String GET_ADDRESS_BY_CUSTOMER_ID = "select * from customers_addresses where customer_id = %s;";
+    String GET_ORDER_BY_CUSTOMER_ID = "select * from orders where customer_id = %s;";
+    String GET_CUSTOMERS_BY_IDS = "select * from customers where id in (%s);";
+    String GET_ADDRESSES_BY_IDS = "select * from customers_addresses where id in (%s);";
     String GET_PRODUCTS_BY_ORDER_ID = "select pi2.id, pi2.supplier_id, pi2.product_name, pi2.available_quantity, pi2.product_type, pi2.price_without_vat, pi2.price_with_vat, pi2.is_product_in_stock, pi2.warehouse\n" +
             "from products_inventory pi2 \n" +
             "join orders_products op on op.product_id = pi2.id \n" +

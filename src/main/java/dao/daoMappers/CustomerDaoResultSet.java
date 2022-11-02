@@ -99,4 +99,33 @@ public class CustomerDaoResultSet extends CustomerDao implements SqlQueries {
 
         return customers;
     }
+
+    /**
+     * Retrieves the ids of all customers in the table.
+     * Uses ResultSet for mapping db data to pojo.
+     *
+     * @return a list of ids
+     */
+    @Override
+    public List<Integer> getCustomerIds() {
+
+        List<Integer> customerIds = new ArrayList<>();
+
+        try (Connection connection = StaticSingletonConnectionHelper.getInstance().getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(GET_CUSTOMER_IDS)) {
+
+            while (resultSet.next()) {
+                customerIds.add(resultSet.getInt(CUSTOMERS_ID_COLUMN));
+            }
+
+            if (customerIds == null) {
+                logger.log(Level.INFO, EMPTY_RESULT_MESSAGE);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return customerIds;
+    }
 }

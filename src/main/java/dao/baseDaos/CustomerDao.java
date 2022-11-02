@@ -83,4 +83,11 @@ public abstract class CustomerDao implements DAO<Customer>, SqlQueries {
     public int getRecordsCount() {
         return daoHelper.getRecordsCount(CUSTOMERS_TABLE);
     }
+
+    /**
+     * Retrieves all customer ids from the table.
+     *
+     * @return a list of ids
+     */
+    public abstract List<Integer> getCustomerIds();
 }
