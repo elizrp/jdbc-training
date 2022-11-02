@@ -41,7 +41,6 @@ public class AddressSteps {
             assertNotNull(String.format("Customer with id % does not have an address!", customer.getId()),
                     addressDao.getByCustomerId(customer.getId()));
         }
-
     }
 
     @When("user retrieves {int} random addresses")
@@ -54,8 +53,8 @@ public class AddressSteps {
     @Then("verify addresses mandatory fields are with data")
     public void verifyMandatoryFieldsNotEmpty() {
         for (Address address : randomAddresses) {
-            assertNotNull("Customer name must not be null!", address.getCity());
-            assertNotNull("Customer phone must not be null!", address.getCountry());
+            assertNotNull("Address city must not be null!", address.getCity());
+            assertNotNull("Address country must not be null!", address.getCountry());
         }
     }
 }
