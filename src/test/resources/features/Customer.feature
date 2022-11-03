@@ -1,6 +1,9 @@
 @Customer
 Feature: CRUD operations with 'customers' table
 
+  Background:
+    Given prepare data for customer tests
+
   #create a new record, save it and verify that it was saved successfully, verify there are more entries in the table
   @CreateCustomer
   Scenario: Verify new record is created successfully

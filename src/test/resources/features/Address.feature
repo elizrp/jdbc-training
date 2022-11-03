@@ -1,6 +1,9 @@
 @Address
 Feature: CRUD operations with 'customers_addresses' table
 
+  Background:
+    Given prepare data for address tests
+
   #get X random customers by getting X random customer IDs and verify they have an address
   @Customer-Address
   Scenario Outline: Verify customers have addresses

@@ -6,7 +6,7 @@ import dao.daoMappers.AddressDaoDBUtils;
 import dao.daoMappers.CustomerDaoDBUtils;
 import helpers.BaseHelper;
 import helpers.objectBuilding.CustomerHelper;
-import io.cucumber.java.BeforeAll;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import model.Customer;
@@ -26,7 +26,7 @@ public class CustomerSteps {
     private static int customerId;
     private static int totalCount;
 
-    @BeforeAll
+    @Given("prepare data for customer tests")
     public static void prepareData() {
         BaseHelper.prepareData(customerDaoDBUtils, addressDao, numberOfRecords);
     }

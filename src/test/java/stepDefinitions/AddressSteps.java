@@ -5,7 +5,7 @@ import dao.baseDaos.CustomerDao;
 import dao.daoMappers.AddressDaoDBUtils;
 import dao.daoMappers.CustomerDaoDBUtils;
 import helpers.BaseHelper;
-import io.cucumber.java.BeforeAll;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import model.Address;
@@ -24,7 +24,7 @@ public class AddressSteps {
     private static List<Customer> randomCustomers = new ArrayList<>();
     private static int numberOfRecords = 5;
 
-    @BeforeAll
+    @Given("prepare data for address tests")
     public static void prepareData() {
         BaseHelper.prepareData(customerDaoDBUtils, addressDao, numberOfRecords);
     }
